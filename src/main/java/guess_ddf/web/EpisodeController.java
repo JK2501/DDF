@@ -7,10 +7,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class EpisodeController {
 
+    private final EpisodeService episodeService;
+
+    public EpisodeController(EpisodeService episodeService) {
+        this.episodeService = episodeService;
+    }
+
     @GetMapping
     String getEpisode(Model model) {
-        model.addAttribute("episode", "001-Super-Papagei");
-        return "episode";
+        model.addAttribute("episodes", episodeService.getEpisodes());
+        return "episodes";
     }
 
 }
