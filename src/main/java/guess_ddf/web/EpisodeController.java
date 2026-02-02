@@ -13,7 +13,7 @@ public class EpisodeController {
         this.episodeService = episodeService;
     }
 
-    @GetMapping
+    @GetMapping("/episodes")
     String getEpisode(Model model) {
         model.addAttribute("episodes", episodeService.getEpisodes());
         return "episodes";

@@ -3,6 +3,8 @@ package guess_ddf.web;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -27,7 +29,7 @@ public class Episode {
     private String shortDescription;
 
     @JsonProperty("veröffentlichungsdatum")
-    private String releaseDate;
+    private LocalDate releaseDate;
 
     @JsonProperty("gesamtdauer")
     private int length;
@@ -67,14 +69,21 @@ public class Episode {
         this.shortDescription = shortDescription;
     }
 
-    public String getReleaseDate() { return releaseDate; }
+    public LocalDate getReleaseDate() { return releaseDate; }
     public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+        if(releaseDate == null || releaseDate.isEmpty()) { releaseDate = "1970-01-01"; }
+        this.releaseDate = LocalDate.parse(releaseDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     public int getLength() { return length; }
     public void setLength(int length) {
         this.length = length;
+    }
+
+    public String getLengthAsString() {
+        int minutes = length / 60000;
+        int seconds = (length % 60000) / 1000;
+        return String.format("%02d:%02d", minutes, seconds);
     }
 
     public ArrayList<SpeakingRole> getSpeakingRoles() { return speakingRoles; }
