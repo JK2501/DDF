@@ -2,10 +2,12 @@ package guess_ddf.web;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import tools.jackson.databind.JsonNode;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Episode {
@@ -36,6 +38,8 @@ public class Episode {
 
     @JsonProperty("sprechrollen")
     private ArrayList<SpeakingRole> speakingRoles;
+
+    private String cover;
 
     public Episode() {}
 
@@ -95,6 +99,28 @@ public class Episode {
         ArrayList<String> roles = new ArrayList<>();
         for(SpeakingRole speakingRole : speakingRoles) { roles.add(speakingRole.getRole()); }
         return String.join(", ", roles);
+    }
+
+    @JsonProperty("links")
+    private void unpackNested(JsonNode node) {
+        JsonNode coverNode = node.get("cover");
+
+        if (coverNode == null || coverNode.isNull()) {
+            return;
+        }
+
+        if (coverNode.isArray()) {
+            // Case: Map<String, ArrayList> -> take the first element
+            this.cover = coverNode.has(0) ? coverNode.get(0).asText() : null;
+        } else {
+            // Case: Map<String, String> -> take as text
+            this.cover = coverNode.asText();
+        }
+    }
+
+    public String getCover() { return cover; }
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 
     @Override

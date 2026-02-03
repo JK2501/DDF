@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="../static/css/episodes.css" th:href="@{/css/episodes.css}" rel="stylesheet">
 </head>
 <body>
     <table>
         <tr>
+            <th>Cover</th>
             <th>Nummer</th>
             <th>Titel</th>
             <th>Autor</th>
@@ -14,6 +16,9 @@
             <th>Dauer</th>
         </tr>
         <tr th:each="episode : ${episodes}">
+            <td>
+                <img th:src="@{${episode.cover}}" alt="fail" width="50" height="50">
+            </td>
             <td th:text="${episode.getNumber()}"></td>
             <td th:text="${episode.getTitle()}"></td>
             <td th:text="${episode.getAuthor()}"></td>
