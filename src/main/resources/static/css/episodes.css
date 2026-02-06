@@ -1,8 +1,100 @@
+:root {
+    --character-yellow: #f7ba0b;
+    --character-orange: #d4652f;
+    --character-red:    #a02128;
+    --character-violet: #904684;
+    --character-blue:   #154889;
+    --character-green:  #317f43;
+    --character-grey:   #9b9b9b;
+    --character-brown:  #7b5141;
+    --character-white:  #f4f4f4;
+    --character-black:  #282828;
+}
+
+body {
+    background-color: #373538;
+}
+
+table {
+    width: 100%;
+}
+
 table > * {
     text-align: center;
+    color: black;
 }
 
 th, td {
     word-wrap: break-word;
     max-width: 200px;
+}
+
+td.characters {
+    display: grid;
+    grid-auto-flow: column;
+    overflow-x: scroll;
+    flex-direction: row;
+    max-width: 600px;
+}
+
+td.characters > span {
+    display: inline;
+    color: black;
+    border: 1px solid black;
+    padding: 0.2rem;
+    margin: 0.2rem;
+    border-radius: 5rem;
+    align-items: center;
+    width: 100px;
+    overflow-x: clip;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+td.characters > span[data-name~="erzähler"] {
+    background-color: var(--character-green);
+}
+
+td.characters > span[data-name~="justus"] {
+    background-color: var(--character-white);
+}
+
+td.characters > span[data-name~="peter"] {
+    color: white !important;
+    background-color: var(--character-blue);
+}
+
+td.characters > span[data-name~="bob"] {
+    color: white !important;
+    background-color: var(--character-red);
+}
+
+td.characters > span[data-name~="titus"] {
+    background-color: var(--character-orange);
+}
+
+td.characters > span[data-name~="mathilda"] {
+    background-color: var(--character-violet);
+}
+
+td.characters > span[data-name~="morton"] {
+    background-color: var(--character-grey);
+}
+
+td.characters > span[data-name~="skinny"] {
+    background-color: var(--character-brown);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    border-radius: 5rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(90, 90, 90);
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
 }

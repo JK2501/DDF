@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Episoden</title>
     <link href="../static/css/episodes.css" th:href="@{/css/episodes.css}" rel="stylesheet">
 </head>
 <body>
@@ -14,16 +14,26 @@
             <th>Autor</th>
             <th>Datum</th>
             <th>Dauer</th>
+            <th>Charaktere</th>
         </tr>
         <tr th:each="episode : ${episodes}">
             <td>
-                <img th:src="@{${episode.cover}}" alt="fail" width="50" height="50">
+                <img th:src="@{${episode.getTitleAsImageSourceLookup()}}" loading="lazy" alt="fail" width="50" height="50">
             </td>
             <td th:text="${episode.getNumber()}"></td>
             <td th:text="${episode.getTitle()}"></td>
             <td th:text="${episode.getAuthor()}"></td>
+
             <td th:text="${episode.getReleaseDate()}"></td>
             <td th:text="${episode.getLengthAsString()}"></td>
+
+            <td class="characters">
+                <span
+                        th:each="sr : ${episode.getSpeakingRoles()}"
+                        th:text="${sr.getRole()}"
+                        th:attr="data-name=${sr.getRole().toLowerCase()}"
+                ></span>
+            </td>
         </tr>
     </table>
 </body>

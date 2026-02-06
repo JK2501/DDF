@@ -1,5 +1,6 @@
 package guess_ddf.web;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import tools.jackson.databind.JsonNode;
@@ -7,10 +8,15 @@ import tools.jackson.databind.JsonNode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Episode {
+
+    @JsonIgnore
+    private final String coverPath = "/cover";
+
+    @JsonIgnore
+    private final String coverType = "jpg";
 
     @JsonProperty("nummer")
     private int number;
@@ -36,7 +42,6 @@ public class Episode {
     @JsonProperty("gesamtdauer")
     private int length;
 
-    @JsonProperty("sprechrollen")
     private ArrayList<SpeakingRole> speakingRoles;
 
     private String cover;
@@ -51,6 +56,12 @@ public class Episode {
     public String getTitle() { return title; }
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @JsonIgnore
+    public String getTitleAsImageSourceLookup(){
+        String formatted = String.format("%s/%03d_%s.%s", coverPath, number, title, coverType);
+        return formatted.replace(":", "");
     }
 
     public String getAuthor() { return author; }
@@ -84,10 +95,26 @@ public class Episode {
         this.length = length;
     }
 
+    @JsonIgnore
     public String getLengthAsString() {
         int minutes = length / 60000;
         int seconds = (length % 60000) / 1000;
         return String.format("%02d:%02d", minutes, seconds);
+    }
+
+    @JsonProperty("sprechrollen")
+    private void unpackSpeakingRoles(JsonNode nodes) {
+        this.speakingRoles = new ArrayList<>();
+        for(JsonNode node : nodes) {
+            String role = node.get("rolle").asText();
+            String speaker = node.get("sprecher").asText();
+
+            String pseudonym = "-";
+            if(node.get("pseudonym") != null) { pseudonym = node.get("pseudonym").asText(); }
+
+            SpeakingRole speakingRole = new SpeakingRole(speaker, role, pseudonym);
+            speakingRoles.add(speakingRole);
+        }
     }
 
     public ArrayList<SpeakingRole> getSpeakingRoles() { return speakingRoles; }
@@ -95,6 +122,7 @@ public class Episode {
         this.speakingRoles = speakingRoles;
     }
 
+    @JsonIgnore
     public String getSpeakingRolesAsString() {
         ArrayList<String> roles = new ArrayList<>();
         for(SpeakingRole speakingRole : speakingRoles) { roles.add(speakingRole.getRole()); }
@@ -102,8 +130,8 @@ public class Episode {
     }
 
     @JsonProperty("links")
-    private void unpackNested(JsonNode node) {
-        JsonNode coverNode = node.get("cover");
+    private void unpackLinks(JsonNode node) {
+        JsonNode coverNode = node.get("static/cover");
 
         if (coverNode == null || coverNode.isNull()) {
             return;
