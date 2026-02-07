@@ -131,7 +131,7 @@ public class Episode {
 
     @JsonProperty("links")
     private void unpackLinks(JsonNode node) {
-        JsonNode coverNode = node.get("static/cover");
+        JsonNode coverNode = node.get("cover");
 
         if (coverNode == null || coverNode.isNull()) {
             return;

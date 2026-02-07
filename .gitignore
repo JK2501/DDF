@@ -5,6 +5,7 @@ target/
 !**/src/test/**/target/
 episodes.json
 cover/
+DB.txt
 
 ### STS ###
 .apt_generated
