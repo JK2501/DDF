@@ -39,4 +39,8 @@ public class EpisodeService {
         return repository.findAll();
     }
 
+    public Episode findByNumber(int number) {
+        return repository.findByNumber(number);
+    }
+
 }

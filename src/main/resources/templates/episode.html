@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Episoden</title>
+    <link href="../static/css/episode.css" th:href="@{/css/episode.css}" rel="stylesheet">
+</head>
+<body>
+    <div class="episode">
+        <table>
+            <caption th:text="${episode.getCombinedTitle()}"></caption>
+            <caption></caption>
+            <tbody>
+                <tr><td>Autor</td><td th:text="${episode.getAuthor()}"></td></tr>
+                <tr><td>Ersterscheinung</td><td th:text="${episode.getReleaseDate()}"></td></tr>
+                <tr><td>Dauer</td><td th:text="${episode.getLengthAsString()}"></td></tr>
+            </tbody>
+
+        </table>
+    </div>
+</body>
+</html>

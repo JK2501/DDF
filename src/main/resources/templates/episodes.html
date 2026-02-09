@@ -19,7 +19,9 @@
         </tr>
         <tr th:each="episode : ${episodes}">
             <td>
-                <img th:src="@{${episode.getTitleAsImageSourceLookup()}}" loading="lazy" alt="fail" width="50" height="50">
+                <a th:href="@{${episode.getNumberAsEpisodeLink()}}">
+                    <img th:src="@{${episode.getTitleAsImageSourceLookup()}}" loading="lazy" alt="fail" width="50" height="50">
+                </a>
             </td>
             <td th:text="${episode.getNumber()}"></td>
             <td th:text="${episode.getTitle()}"></td>
