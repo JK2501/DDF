@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Episoden</title>
     <link href="../static/css/episodes.css" th:href="@{/css/episodes.css}" rel="stylesheet">
 </head>
@@ -27,12 +28,14 @@
             <td th:text="${episode.getReleaseDate()}"></td>
             <td th:text="${episode.getLengthAsString()}"></td>
 
-            <td class="characters">
+            <td class="last-column">
+                <div class="char-container">
                 <span
                         th:each="sr : ${episode.getSpeakingRoles()}"
                         th:text="${sr.getRole()}"
                         th:attr="data-name=${sr.getRole().toLowerCase()}"
                 ></span>
+                </div>
             </td>
         </tr>
     </table>
