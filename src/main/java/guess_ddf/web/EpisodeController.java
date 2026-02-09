@@ -1,24 +1,21 @@
 package guess_ddf.web;
 
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-@Profile("setup")
 public class EpisodeController {
 
-    private final EpisodeService episodeService;
+    private final EpisodeService service;
 
-    public EpisodeController(EpisodeService episodeService) {
-        this.episodeService = episodeService;
+    public EpisodeController(EpisodeService service) {
+        this.service = service;
     }
 
     @GetMapping("/episodes")
     String getEpisode(Model model) {
-        model.addAttribute("episodes", episodeService.getEpisodes());
+        model.addAttribute("episodes", service.findAll());
         return "episodes";
     }
-
 }

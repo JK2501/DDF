@@ -1,42 +1,42 @@
 package guess_ddf.web;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.ObjectMapper;
-import tools.jackson.databind.SerializationFeature;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Profile("setup")
 public class EpisodeService {
 
-    private final List<Episode> episodes = new ArrayList<Episode>();
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final EpisodeRepository repository;
+    private final EpisodeImporter episodeImporter;
 
-    public List<Episode> getEpisodes() {
-        return episodes;
+    public EpisodeService(EpisodeRepository repository, EpisodeImporter episodeImporter) {
+        this.repository = repository;
+        this.episodeImporter = episodeImporter;
     }
 
     @PostConstruct
-    public void readEpisodesFromFile() throws Exception {
-        InputStream is = getClass().getClassLoader().getResourceAsStream("serie.json");
-        JsonNode root = mapper.readTree(is);
-        JsonNode serieNode = root.get("serie");
+    public void databaseCheck() {
 
-        for(JsonNode episodeNode : serieNode) {
-            episodes.add(mapper.treeToValue(episodeNode, Episode.class));
+        // database is not empty
+        if (repository.count() != 0) {
+            return;
         }
+
+        // database is empty
+        System.out.println(String.format("======= Populating Database from: %s", "JSON"));
+        List<Episode> episodes = episodeImporter.importEpisodes("serie.json");
+        repository.saveAll(episodes);
+        System.out.println(String.format("======= Inserted %d episodes", repository.count()));
+
+        // export episodes to JSON
+        episodeImporter.exportEpisodes();
+        System.out.println("======= Exporting episodes to JSON");
     }
 
-    @PreDestroy
-    public void writeEpisodesToFile() throws Exception {
-        mapper.writerWithDefaultPrettyPrinter().writeValue(new File("episodes.json"), episodes);
+    public List<Episode> findAll() {
+        return repository.findAll();
     }
+
 }
