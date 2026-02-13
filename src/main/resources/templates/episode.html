@@ -3,21 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Episoden</title>
-    <link href="../static/css/episode.css" th:href="@{/css/episode.css}" rel="stylesheet">
+    <title>Episode</title>
+    <link href="../static/css/episodes.css" th:href="@{/css/episodes.css}" rel="stylesheet">
 </head>
-<body>
-    <div class="episode">
+    <body>
+        <header>
+            <h1>Episode:</h1>
+            <label id="switch">
+                <input type="checkbox">
+            </label>
+        </header>
         <table>
-            <caption th:text="${episode.getCombinedTitle()}"></caption>
-            <caption></caption>
             <tbody>
-                <tr><td>Autor</td><td th:text="${episode.getAuthor()}"></td></tr>
-                <tr><td>Ersterscheinung</td><td th:text="${episode.getReleaseDate()}"></td></tr>
-                <tr><td>Dauer</td><td th:text="${episode.getLengthAsString()}"></td></tr>
+                <tr>
+                    <td>
+                        <div class="img">
+                            <object th:attr="data=@{${episode.getTitleAsImageSourceLookup()}}" type="image/jpeg">
+                                <img th:src="@{${episode.getCover()}}" loading="lazy" alt="fail" width="250" height="250">
+                            </object>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="info">
+                            <p><b>Titel: </b><span th:text="${episode.title}"></span></p>
+                            <p><b>Nummer: </b><span th:text="${episode.getNumber()}"></span></p>
+                            <p><b>Autor: </b><span th:text="${episode.getAuthor()}"></span></p>
+                            <p><b>Erscheinungsjahr: </b><span th:text="${episode.getReleaseDate()}"></span></p>
+                            <p><b>Dauer: </b><span th:text="${episode.getLengthAsString()}"></span></p>
+                        </div>
+                        <div class="chars">
+                            <ul aria-label="Charaktere: ">
+                                <li th:each="sr : ${episode.getSpeakingRoles()}"
+                                    th:text="${sr.getRole()}"
+                                    th:attr="data-name=${sr.getRole().toLowerCase()}"
+                                ></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
-
         </table>
-    </div>
-</body>
+    </body>
 </html>

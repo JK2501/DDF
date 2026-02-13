@@ -7,20 +7,20 @@
     <link href="../static/css/episodes.css" th:href="@{/css/episodes.css}" rel="stylesheet">
 </head>
 <body>
+    <header>
+        <h1>Episoden:</h1>
+        <label id="switch">
+            <input type="checkbox">
+        </label>
+    </header>
     <table>
-        <header>
-            <h1>Episoden:</h1>
-            <label id="switch">
-                <input type="checkbox">
-            </label>
-        </header>
         <tbody>
             <tr th:each="episode : ${episodes}">
                 <td>
                     <a th:href="@{${episode.getNumberAsEpisodeLink()}}">
                         <div class="img">
                             <object th:attr="data=@{${episode.getTitleAsImageSourceLookup()}}" type="image/jpeg">
-                                <img th:src="@{${episode.getCover()}}" loading="lazy" alt="fail" width="50" height="50">
+                                <img th:src="@{${episode.getCover()}}" loading="lazy" alt="fail" width="250" height="250">
                             </object>
                         </div>
                     </a>
