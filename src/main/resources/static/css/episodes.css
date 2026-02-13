@@ -1,5 +1,6 @@
 :root {
-    --border: #FFFFFF;
+    --body: white;
+    --text: black;
 
     --character-yellow: #f7ba0b;
     --character-orange: #d4652f;
@@ -11,6 +12,43 @@
     --character-brown:  #7b5141;
     --character-white:  #f4f4f4;
     --character-black:  #282828;
+}
+
+/* COLOR THEME SWITCHER */
+/* SET THEME TO LIGHT */
+:root:has(input:checked) {
+    --body: #181a1b;
+    --text: #e8e6e3;
+
+    --character-yellow: #f7ba0b;
+    --character-orange: #d4652f;
+    --character-red:    #a02128;
+    --character-violet: #904684;
+    --character-blue:   #154889;
+    --character-green:  #317f43;
+    --character-grey:   #9b9b9b;
+    --character-brown:  #7b5141;
+    --character-white:  #f4f4f4;
+    --character-black:  #282828;
+}
+
+header {
+    display: grid !important;
+    grid-template-columns: auto min-content;
+    align-items: center;
+    background: var(--body);
+    padding: 1rem;
+    border: 1px dotted var(--text);
+    margin: 0.75rem;
+    max-width: 1000px;
+}
+
+body {
+    background-color: var(--body);
+}
+
+p, li, ul, h1 {
+    color: var(--text);
 }
 
 * {
@@ -41,7 +79,7 @@ table > tbody > tr > td:nth-child(2) {
     justify-content: space-between;
 }
 
-object {
+div.img {
     width: 250px;
     height: 250px;
     margin-top: -75px;
@@ -50,7 +88,7 @@ object {
     margin-bottom: -10px;
 }
 
-div {
+div.info, div.chars {
     padding: 1rem;
 }
 
