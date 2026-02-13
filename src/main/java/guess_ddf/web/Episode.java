@@ -80,8 +80,8 @@ public class Episode {
     public void setCover(String cover) { this.cover = cover; }
 
     public String getTitleAsImageSourceLookup(){
-        String formatted = String.format("%s/%03d_%s.%s", "/cover", number, title, "jpg");
-        return formatted.replace(":", "");
+        String formatted = String.format("%s/%03d_%s.%s", "/cover", number, title, "jpg").replace(":", "").replace(" ", "%20");
+        return formatted;
     }
 
     public String getSpeakingRolesAsString() {

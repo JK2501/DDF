@@ -12,7 +12,7 @@
             <tr th:each="episode : ${episodes}">
                 <td>
                     <a th:href="@{${episode.getNumberAsEpisodeLink()}}">
-                        <object th:attr="data=@{${episode.getTitleAsImageSourceLookup()}}" type=“image/jpeg”>
+                        <object th:attr="data=@{${episode.getTitleAsImageSourceLookup()}}" type="image/jpeg">
                             <img th:src="@{${episode.getCover()}}" loading="lazy" alt="fail" width="50" height="50">
                         </object>
                     </a>
