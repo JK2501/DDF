@@ -6,6 +6,7 @@ target/
 episodes.json
 cover/
 DB.txt
+mockup/
 
 ### STS ###
 .apt_generated

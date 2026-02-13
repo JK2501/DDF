@@ -8,40 +8,34 @@
 </head>
 <body>
     <table>
-        <tr>
-            <th>Cover</th>
-            <th>Nummer</th>
-            <th>Titel</th>
-            <th>Autor</th>
-            <th>Datum</th>
-            <th>Dauer</th>
-            <th>Charaktere</th>
-        </tr>
-        <tr th:each="episode : ${episodes}">
-            <td>
-                <a th:href="@{${episode.getNumberAsEpisodeLink()}}">
-                    <object th:attr="data=@{${episode.getTitleAsImageSourceLookup()}}" type=“image/jpeg”>
-                        <img th:src="@{${episode.getCover()}}" loading="lazy" alt="fail" width="50" height="50">
-                    </object>
-                </a>
-            </td>
-            <td th:text="${episode.getNumber()}"></td>
-            <td th:text="${episode.getTitle()}"></td>
-            <td th:text="${episode.getAuthor()}"></td>
-
-            <td th:text="${episode.getReleaseDate()}"></td>
-            <td th:text="${episode.getLengthAsString()}"></td>
-
-            <td class="last-column">
-                <div class="char-container">
-                <span
-                        th:each="sr : ${episode.getSpeakingRoles()}"
-                        th:text="${sr.getRole()}"
-                        th:attr="data-name=${sr.getRole().toLowerCase()}"
-                ></span>
-                </div>
-            </td>
-        </tr>
+        <tbody>
+            <tr th:each="episode : ${episodes}">
+                <td>
+                    <a th:href="@{${episode.getNumberAsEpisodeLink()}}">
+                        <object th:attr="data=@{${episode.getTitleAsImageSourceLookup()}}" type=“image/jpeg”>
+                            <img th:src="@{${episode.getCover()}}" loading="lazy" alt="fail" width="50" height="50">
+                        </object>
+                    </a>
+                </td>
+                <td>
+                    <div class="info">
+                        <p><b>Titel: </b><span th:text="${episode.title}"></span></p>
+                        <p><b>Nummer: </b><span th:text="${episode.getNumber()}"></span></p>
+                        <p><b>Autor: </b><span th:text="${episode.getAuthor()}"></span></p>
+                        <p><b>Erscheinungsjahr: </b><span th:text="${episode.getReleaseDate()}"></span></p>
+                        <p><b>Dauer: </b><span th:text="${episode.getLengthAsString()}"></span></p>
+                    </div>
+                    <div class="chars">
+                        <ul aria-label="Charaktere: ">
+                            <li th:each="sr : ${episode.getSpeakingRoles()}"
+                                th:text="${sr.getRole()}"
+                                th:attr="data-name=${sr.getRole().toLowerCase()}"
+                            ></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
     </table>
 </body>
 </html>

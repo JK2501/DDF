@@ -13,122 +13,89 @@
     --character-black:  #282828;
 }
 
-*, *:before, *:after {
+* {
     padding: 0;
-    box-sizing: border-box;
     margin: 0;
+    box-sizing: border-box;
 }
 
-body {
-    background-color: #2C2C2C;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: auto;
-}
-
-table > * {
-    text-align: center;
-    color: #FFFFFF;
-}
-
-th, td {
-    white-space: nowrap;
-    padding: 5px;
-    border: 1px solid var(--border);
-}
-
-td.last-column {
-    width: 100%;
-    min-width: 0;
-}
-
-.char-container {
-    max-width: 1100px;
+table > tbody > tr {
     display: flex;
-    flex-wrap: nowrap;
-    gap: 8px;
-    overflow-x: auto;
+    padding: 1em;
 }
 
-.char-container::-webkit-scrollbar {
-    height: 10px;
-    width: 10px;
+table > tbody > tr > td {
+    height: 170px;
 }
-.char-container::-webkit-scrollbar-thumb {
-    background: #b3b3b3;
+
+table > tbody > tr > td:nth-child(1) {
+    width: 170px;
+    overflow: hidden;
     border-radius: 5px;
-    height: 10vh;
-    position: absolute;
-    top: 30%;
 }
 
-.char-container::-webkit-scrollbar-track {
-    background: transparent;
+table > tbody > tr > td:nth-child(2) {
+    width: 80%;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-
-.char-container span {
-    display: inline;
-    color: #FFFFFF;
-    border: 1px solid var(--border);
-    padding: 0.2rem;
-    margin: 0.2rem;
-    border-radius: 5rem;
-    align-items: center;
-    width: 100px;
-    overflow-x: clip;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    flex-shrink: 0;
+img {
+    width: 250px;
+    height: 250px;
+    margin-top: -75px;
+    margin-right: -40px;
+    margin-left: -40px;
+    margin-bottom: -10px;
 }
 
-.char-container span[data-name~="erzähler"] {
-    background-color: var(--character-green);
+div {
+    padding: 1rem;
 }
 
-.char-container span[data-name~="justus"] {
-    color: black !important;
-    background-color: var(--character-white);
+div.info {
+    display: flex;
+    height: 100%;
+    width: max-content;
+    flex-direction: column;
+    text-align: left;
+    justify-content: space-evenly;
 }
 
-.char-container span[data-name~="peter"] {
-    background-color: var(--character-blue);
+div.chars > ul:before{
+    content:attr(aria-label);
+    font-weight:bold;
 }
 
-.char-container span[data-name~="bob"] {
-    background-color: var(--character-red);
+div.chars > ul > li:nth-child(n+7) {
+    display: none;
 }
 
-.char-container span[data-name~="titus"] {
-    background-color: var(--character-orange);
+div.chars > ul > li[data-name~="erzähler"] {
+    color: var(--character-green);
 }
 
-.char-container span[data-name~="mathilda"] {
-    background-color: var(--character-violet);
+div.chars > ul > li[data-name~="peter"] {
+    color: var(--character-blue);
 }
 
-.char-container span[data-name~="morton"] {
-    background-color: var(--character-grey);
+div.chars > ul > li[data-name~="bob"] {
+    color: var(--character-red);
 }
 
-.char-container span[data-name~="skinny"] {
-    background-color: var(--character-brown);
+div.chars > ul > li[data-name~="titus"] {
+    color: var(--character-orange);
 }
 
-body::-webkit-scrollbar {
-    width: 10px;
-}
-body::-webkit-scrollbar-thumb {
-    background: #b3b3b3;
-    border-radius: 5px;
-    height: 10vh;
-    position: absolute;
-    top: 30%;
+div.chars > ul > li[data-name~="mathilda"] {
+    color: var(--character-violet);
 }
 
-body::-webkit-scrollbar-track {
-    background: transparent;
+div.chars > ul > li[data-name~="morton"] {
+    color: var(--character-grey);
+}
+
+div.chars > ul > li[data-name~="skinny"] {
+    color: var(--character-brown);
 }
