@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Guess</title>
+        <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet">
+        <link href="../static/css/guess.css" th:href="@{/css/guess.css}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="guess">
+            <div class="guess-header">
+                <span th:each="hint : ${hints}"></span>
+            </div>
+            <form>
+                <input type="text" name="guess" placeholder="Gib eine Folge ein: "></input>
+                <button type="submit">?</button>
+            </form>
+            <div class="guess-list">
+                <ul>
+                    <li th:each="episode : ${guesses}">
+                        <div class="guess-list-item">
+                            <a th:href="@{${episode.getNumberAsEpisodeLink()}}">
+                                <div class="img">
+                                    <object type="image/jpeg" th:attr="data=@{${episode.getTitleAsImageSourceLookup()}}">
+                                        <img th:src="@{${episode.getCover()}}" loading="lazy" alt="fail" width="100" height="100">
+                                    </object>
+                                </div>
+                            </a>
+                        </div>
+                        <p th:text="${episode.getCombinedTitle()}"></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

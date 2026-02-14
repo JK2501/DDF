@@ -1,0 +1,18 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    --character-yellow: #f7ba0b;
+    --character-orange: #d4652f;
+    --character-red:    #a02128;
+    --character-violet: #904684;
+    --character-blue:   #154889;
+    --character-green:  #317f43;
+    --character-grey:   #9b9b9b;
+    --character-brown:  #7b5141;
+    --character-white:  #f4f4f4;
+    --character-black:  #282828;
+}
