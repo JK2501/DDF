@@ -3,6 +3,7 @@ package guess_ddf.web;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,6 +42,14 @@ public class EpisodeService {
 
     public Episode findByNumber(int number) {
         return repository.findByNumber(number);
+    }
+
+    public Episode findByTitle(String title) {
+        return repository.findByTitle(title);
+    }
+
+    public List<Episode> findByCharacters(ArrayList<String> characters) {
+        return repository.findByCharacters(characters);
     }
 
 }

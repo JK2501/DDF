@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 @Document(collection = "Episodes")
 public class Episode {
@@ -94,6 +95,10 @@ public class Episode {
         int minutes = length / 60000;
         int seconds = (length % 60000) / 1000;
         return String.format("%02d:%02d", minutes, seconds);
+    }
+
+    public static boolean isContained(ArrayList<Episode> episodes, Episode newEpisode) {
+        return episodes.stream().anyMatch(episode -> episode.title.equals(newEpisode.title));
     }
 
     @Override

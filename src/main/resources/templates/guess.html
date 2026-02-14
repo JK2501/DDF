@@ -10,10 +10,10 @@
     <body>
         <div class="guess">
             <div class="guess-header">
-                <span th:each="hint : ${hints}"></span>
+                <span th:each="hint : ${hints}" th:text="${hint}"></span>
             </div>
-            <form>
-                <input type="text" name="guess" placeholder="Gib eine Folge ein: "></input>
+            <form th:action="@{/guess}" method="post">
+                <input type="text" name="guess" placeholder="Gib eine Folge ein: " th:value="${guess}"></input>
                 <button type="submit">?</button>
             </form>
             <div class="guess-list">
