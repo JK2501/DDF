@@ -10,7 +10,7 @@
     <body>
         <div class="guess">
             <div class="guess-header">
-                <span th:each="hint : ${hints}" th:text="${hint}"></span>
+                <span th:each="clue : ${clues}" th:text="${clue}"></span>
             </div>
             <form th:action="@{/guess}" method="post">
                 <input type="text" name="guess" placeholder="Gib eine Folge ein: " th:value="${guess}"></input>
@@ -18,7 +18,8 @@
             </form>
             <div class="guess-list">
                 <ul>
-                    <li th:each="episode : ${guesses}">
+
+                    <li th:each="episode : ${guesses}" th:class="${(riddleId == episode.getId().toString()) ? 'correct': 'incorrect'}">
                         <div class="guess-list-item">
                             <a th:href="@{${episode.getNumberAsEpisodeLink()}}">
                                 <div class="img">

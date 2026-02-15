@@ -11,7 +11,8 @@ div.guess-header {
     display: grid;
     grid-auto-flow: column;
     grid-gap: 1rem;
-    min-width: 200px;
+    justify-content: start;
+    min-width: 400px;
 }
 
 div.guess-header > span {
@@ -20,6 +21,7 @@ div.guess-header > span {
     height: 80px;
     place-items: center;
     border: 1px solid black;
+    font-size: xxx-large;
 }
 
 div.guess > form {
@@ -43,6 +45,7 @@ div.guess-list > ul {
     li {
         display: flex;
         align-items: center;
+        margin-bottom: 1rem;
 
         div.guess-list-item {
 
@@ -62,12 +65,20 @@ div.guess-list > ul {
 
         p {
             flex-grow: 4;
-            text-align: center;
+            text-align: left;
             padding: 1rem;
             font-size: larger;
             font-weight: bold;
         }
     }
+}
+
+div.guess-list > ul > li.incorrect {
+    background-color: red;
+}
+
+div.guess-list > ul > li.correct {
+    background-color: green;
 }
 
 div.guess-list > ul > li:hover {
