@@ -1,4 +1,4 @@
-package guess_ddf.web;
+package guess_ddf.web.episode;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 @Document(collection = "Episodes")
 public class Episode {

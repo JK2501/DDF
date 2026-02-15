@@ -1,4 +1,4 @@
-package guess_ddf.web;
+package guess_ddf.web.episode;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;

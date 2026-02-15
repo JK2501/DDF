@@ -1,4 +1,4 @@
-package guess_ddf.web;
+package guess_ddf.web.episode;
 
 public class SpeakingRole {
     private String speaker;

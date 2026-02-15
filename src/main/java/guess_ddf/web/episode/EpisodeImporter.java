@@ -1,4 +1,4 @@
-package guess_ddf.web;
+package guess_ddf.web.episode;
 
 import org.springframework.stereotype.Component;
 import tools.jackson.databind.JsonNode;
