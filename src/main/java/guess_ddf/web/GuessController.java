@@ -35,6 +35,7 @@ public class GuessController {
 
         // add clues, guessed and guesses to session storage
         session.setAttribute("clues", clues);
+        session.setAttribute("iClues", 1);
         session.setAttribute("guesses", new ArrayList<Episode>());
         session.setAttribute("guessed", false);
 
@@ -45,37 +46,39 @@ public class GuessController {
 
     @PostMapping("/guess")
     public String showFollowupGuessPage(@RequestParam String guess, HttpSession session, Model model) {
-        // get clues, prev. guesses and number of clues to be displayed
-        List<String> clues = (List<String>) session.getAttribute("clues");
-        List<Episode> guessedEpisodes = (List<Episode>) session.getAttribute("guesses");
+
         boolean guessed = (boolean) session.getAttribute("guessed");
+        List<Episode> guessedEpisodes = (List<Episode>) session.getAttribute("guesses");
+        List<String> clues = (List<String>) session.getAttribute("clues");
+        int iClues = (int) session.getAttribute("iClues");
 
-        int dClues = 2;
-        if(!guessedEpisodes.isEmpty()){
-            dClues = Math.min(guessedEpisodes.size() + 2, clues.size());
-        }
-
-        // find episode matching the guess
-        Episode guessedEpisode = episodeService.findByTitle(guess);
-
-        // add episode if not null and not already contained
-        if(!guessed) {
+        // user already guessed the episode => display all clues; do not add new episodes
+        if(guessed) {  model.addAttribute("clues", clues); }
+        // user did not guess episode in prev attempt
+        else {
+            // find episode matching the guess
+            Episode guessedEpisode = episodeService.findByTitle(guess);
+            // a valid episode
             if (guessedEpisode != null && !Episode.isContained(guessedEpisodes, guessedEpisode)) {
+                // add episode to guesses
                 guessedEpisodes.add(guessedEpisode);
+                // win => display all clues; set guessed true;
                 if (guessedEpisode.getId().toString().equals(riddleId)) {
-                    dClues = clues.size();
+                    session.setAttribute("iClues", clues.size());
                     session.setAttribute("guessed", true);
+                    model.addAttribute("clues", clues);
+                }
+                // not win
+                else {
+                    iClues = Math.min(clues.size(), iClues + 1);
+                    session.setAttribute("iClues", iClues);
+                    model.addAttribute("clues", clues.subList(0, iClues));
                 }
             }
-        }
-        else {
-            dClues = clues.size();
+            // not a valid episode => display all prev. revealed clues; no new episodes added
+            else { model.addAttribute("clues", clues.subList(0, iClues)); }
         }
 
-        session.setAttribute("guesses", guessedEpisodes);
-
-        // re-render page
-        model.addAttribute("clues", clues.subList(0, dClues));
         model.addAttribute("guesses", guessedEpisodes);
         model.addAttribute("riddleId", riddleId);
         model.addAttribute("episodes", episodeService.findAll());
