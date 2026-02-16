@@ -33,47 +33,43 @@ public class GuessController {
         // retrieve clues from db
         List<String> clues = cluesService.findByIdEmojisOnly(riddleId);
 
-        // add number of to be displayed clues to 1
-        session.setAttribute("dClues", 1);
-
-        // add clues to session storage
+        // add clues, guessed and guesses to session storage
         session.setAttribute("clues", clues);
+        session.setAttribute("guesses", new ArrayList<Episode>());
         session.setAttribute("guessed", false);
+
         model.addAttribute("clues", clues.subList(0, 1));
         return "guess";
     }
 
     @PostMapping("/guess")
     public String showFollowupGuessPage(@RequestParam String guess, HttpSession session, Model model) {
-        // on first guess initialize empty array
-        if(session.getAttribute("guesses") == null) { session.setAttribute("guesses",  new ArrayList<Episode>()); }
-
         // get clues, prev. guesses and number of clues to be displayed
         List<String> clues = (List<String>) session.getAttribute("clues");
         List<Episode> guessedEpisodes = (List<Episode>) session.getAttribute("guesses");
-        int dClues = (int) session.getAttribute("dClues");
+        boolean guessed = (boolean) session.getAttribute("guessed");
+
+        int dClues = 2;
+        if(!guessedEpisodes.isEmpty()){
+            dClues = Math.min(guessedEpisodes.size() + 2, clues.size());
+        }
 
         // find episode matching the guess
         Episode guessedEpisode = episodeService.findByTitle(guess);
 
-        // add episode if not already contained
+        // add episode if not null and not already contained
         if(guessedEpisode != null && !Episode.isContained(guessedEpisodes, guessedEpisode)) {
-
-            if(session.getAttribute("guessed").equals(false)){
+            if(!guessed){
                 guessedEpisodes.add(guessedEpisode);
-
-                // in-correct.
-                if(!guessedEpisode.getId().toString().equals(riddleId)) {
-                    dClues = Math.min(guessedEpisodes.size() + 1, clues.size());
-                }
-                // correct!
-                else {
+                if(guessedEpisode.getId().toString().equals(riddleId)){
                     dClues = clues.size();
                     session.setAttribute("guessed", true);
                 }
             }
+            else {
+                dClues = clues.size();
+            }
         }
-        session.setAttribute("dClues", dClues);
         session.setAttribute("guesses", guessedEpisodes);
 
         // re-render page
