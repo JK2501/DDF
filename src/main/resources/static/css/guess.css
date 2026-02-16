@@ -82,7 +82,7 @@ div.guess-list > ul > li.correct {
 }
 
 div.guess-list > ul > li:hover {
-    background-color: lightgray;
+    -webkit-filter: brightness(70%);
 }
 
 object, img {
