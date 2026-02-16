@@ -58,18 +58,19 @@ public class GuessController {
         Episode guessedEpisode = episodeService.findByTitle(guess);
 
         // add episode if not null and not already contained
-        if(guessedEpisode != null && !Episode.isContained(guessedEpisodes, guessedEpisode)) {
-            if(!guessed){
+        if(!guessed) {
+            if (guessedEpisode != null && !Episode.isContained(guessedEpisodes, guessedEpisode)) {
                 guessedEpisodes.add(guessedEpisode);
-                if(guessedEpisode.getId().toString().equals(riddleId)){
+                if (guessedEpisode.getId().toString().equals(riddleId)) {
                     dClues = clues.size();
                     session.setAttribute("guessed", true);
                 }
             }
-            else {
-                dClues = clues.size();
-            }
         }
+        else {
+            dClues = clues.size();
+        }
+
         session.setAttribute("guesses", guessedEpisodes);
 
         // re-render page

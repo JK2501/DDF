@@ -74,11 +74,11 @@ div.guess-list > ul {
 }
 
 div.guess-list > ul > li.incorrect {
-    background-color: red;
+    background-color: var(--character-red);
 }
 
 div.guess-list > ul > li.correct {
-    background-color: green;
+    background-color: var(--character-green);
 }
 
 div.guess-list > ul > li:hover {
