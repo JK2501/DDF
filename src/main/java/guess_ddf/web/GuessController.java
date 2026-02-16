@@ -39,6 +39,7 @@ public class GuessController {
         session.setAttribute("guessed", false);
 
         model.addAttribute("clues", clues.subList(0, 1));
+        model.addAttribute("episodes", episodeService.findAll());
         return "guess";
     }
 
@@ -77,6 +78,7 @@ public class GuessController {
         model.addAttribute("clues", clues.subList(0, dClues));
         model.addAttribute("guesses", guessedEpisodes);
         model.addAttribute("riddleId", riddleId);
+        model.addAttribute("episodes", episodeService.findAll());
         return "guess";
     }
 }

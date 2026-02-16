@@ -4,14 +4,14 @@ body {
 }
 
 div.guess, div.guess > * {
-    padding: 1rem;
+    margin: 1rem;
 }
 
 div.guess-header {
     display: grid;
     grid-auto-flow: column;
     grid-gap: 1rem;
-    justify-content: start;
+    justify-content: center ;
     min-width: 400px;
 }
 
@@ -22,6 +22,21 @@ div.guess-header > span {
     place-items: center;
     border: 1px solid black;
     font-size: xxx-large;
+}
+
+div.guess-filter {
+    border: 1px solid black;
+}
+
+div.guess-filter > ul {
+    overflow-y: scroll;
+    min-height: 50px;
+    max-height: 150px;
+}
+
+div.guess-filter > ul > li {
+    display: none;
+    height: 0;
 }
 
 div.guess > form {
@@ -39,38 +54,52 @@ div.guess > form > button {
 }
 
 div.guess-list > ul {
-
     list-style: none;
+}
 
-    li {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1rem;
 
-        div.guess-list-item {
+li.list-item {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem;
 
-            width: 68px;
-            overflow: hidden;
-            border-radius: 5px;
+    div {
 
-            div.img {
-                width: 100px;
-                height: 100px;
-                margin-top: -30px;
-                margin-left: -16px;
-                margin-right: -16px;
-                margin-bottom: -5px;
-            }
-        }
+        width: 68px;
+        overflow: hidden;
+        border-radius: 5px;
 
-        p {
-            flex-grow: 4;
-            text-align: left;
-            padding: 1rem;
-            font-size: larger;
-            font-weight: bold;
+        div {
+            width: 100px;
+            height: 100px;
+            margin-top: -30px;
+            margin-left: -16px;
+            margin-right: -16px;
+            margin-bottom: -5px;
         }
     }
+
+    p {
+        flex-grow: 4;
+        text-align: left;
+        padding: 1rem;
+        font-size: larger;
+        font-weight: bold;
+    }
+}
+
+object, img {
+    width: 100px;
+    height: 100px;
+}
+
+li.list-item:hover {
+    -webkit-filter: brightness(70%);
+    cursor: pointer;
+}
+
+li.list-item:last-of-type {
+    margin-bottom: 0 !important;
 }
 
 div.guess-list > ul > li.incorrect {
@@ -79,13 +108,4 @@ div.guess-list > ul > li.incorrect {
 
 div.guess-list > ul > li.correct {
     background-color: var(--character-green);
-}
-
-div.guess-list > ul > li:hover {
-    -webkit-filter: brightness(70%);
-}
-
-object, img {
-    width: 100px;
-    height: 100px;
 }

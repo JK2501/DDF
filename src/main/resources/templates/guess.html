@@ -6,6 +6,32 @@
         <title>Guess</title>
         <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet">
         <link href="../static/css/guess.css" th:href="@{/css/guess.css}" rel="stylesheet">
+        <script>
+            function FilterList() {
+                let input = document.getElementById('guess-search');
+                let filter = input.value.toUpperCase();
+                let ul = document.getElementById("guess-filter-list");
+                let li = ul.getElementsByTagName('li');
+
+                for (i = 0; i < li.length; i++) {
+                    let txtValue = li[i].textContent;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        li[i].style.display = "flex";
+                        li[i].style.height = "auto";
+                    }
+                    else {
+                        li[i].style.display = "none";
+                    }
+                }
+            }
+            function SubmitEpisode(episode) {
+                if(episode == null){ return }
+                let input = document.getElementById('guess-search');
+                let form = document.getElementsByTagName("form")[0];
+                input.value = episode.dataset.title;
+                form.submit()
+            }
+        </script>
     </head>
     <body>
         <div class="guess">
@@ -13,14 +39,26 @@
                 <span th:each="clue : ${clues}" th:text="${clue}"></span>
             </div>
             <form th:action="@{/guess}" method="post">
-                <input type="text" name="guess" placeholder="Gib eine Folge ein: " th:value="${guess}"></input>
-                <button type="submit">?</button>
+                <input id="guess-search" type="text" name="guess" placeholder="Gib eine Folge ein: " onkeyup="FilterList()"></input>
             </form>
+            <div class="guess-filter">
+                <ul id="guess-filter-list">
+                    <li class="list-item" th:each="episode : ${episodes}" onclick="SubmitEpisode(this)" th:attr="data-title=${episode.getTitle()}">
+                        <div>
+                            <div class="img">
+                                <object type="image/jpeg" th:attr="data=@{${episode.getTitleAsImageSourceLookup()}}">
+                                    <img th:src="@{${episode.getCover()}}" loading="lazy" alt="fail" width="100" height="100">
+                                </object>
+                            </div>
+                        </div>
+                        <p th:text="${episode.getTitle()}"></p>
+                    </li>
+                </ul>
+            </div>
             <div class="guess-list">
                 <ul>
-
-                    <li th:each="episode : ${guesses}" th:class="${(riddleId == episode.getId().toString()) ? 'correct': 'incorrect'}">
-                        <div class="guess-list-item">
+                    <li th:each="episode : ${guesses}" class="list-item" th:classappend="${(riddleId == episode.getId().toString()) ? 'correct': 'incorrect'}">
+                        <div>
                             <a th:href="@{${episode.getNumberAsEpisodeLink()}}">
                                 <div class="img">
                                     <object type="image/jpeg" th:attr="data=@{${episode.getTitleAsImageSourceLookup()}}">
