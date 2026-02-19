@@ -18,4 +18,10 @@ public class Clues {
         this.id = id;
         this.emojis = emojis;
     }
+
+    public String getId() { return id; }
+    public void setId(String id) {}
+
+    public ArrayList<String> getEmojis() { return emojis; }
+    public void setEmojis(ArrayList<String> emojis) { this.emojis = emojis; }
 }

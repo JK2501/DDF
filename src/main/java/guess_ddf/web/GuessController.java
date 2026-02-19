@@ -1,5 +1,6 @@
 package guess_ddf.web;
 
+import guess_ddf.web.clues.Clues;
 import guess_ddf.web.clues.CluesEmoji;
 import guess_ddf.web.episode.Episode;
 import guess_ddf.web.episode.EpisodeService;
@@ -11,9 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 @SuppressWarnings("unchecked")
@@ -21,7 +25,7 @@ public class GuessController {
     private final EpisodeService episodeService;
     private final CluesService cluesService;
 
-    private final String riddleId = "698a1681a7dd566eba2126f6";
+    private String riddleId = "";
 
     public GuessController(EpisodeService episodeService, CluesService cluesService) {
         this.episodeService = episodeService;
@@ -30,6 +34,8 @@ public class GuessController {
 
     @GetMapping("/guess")
     public String showInitialGuessPage(HttpSession session, Model model) {
+        riddleId = generateDailyRiddle();
+
         // retrieve clues from db
         List<String> clues = cluesService.findByIdEmojisOnly(riddleId);
 
@@ -83,5 +89,13 @@ public class GuessController {
         model.addAttribute("riddleId", riddleId);
         model.addAttribute("episodes", episodeService.findAll());
         return "guess";
+    }
+
+    private String generateDailyRiddle(){
+        long seed = LocalDate.now(ZoneOffset.UTC).toEpochDay();
+        Random rand = new Random(seed);
+        int index = rand.nextInt(cluesService.findAll().size());
+        Clues riddle = cluesService.getNth(index);
+        return riddle.getId().toString();
     }
 }
