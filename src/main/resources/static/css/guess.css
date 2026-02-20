@@ -8,20 +8,27 @@ div.guess, div.guess > * {
 }
 
 div.guess-header {
-    display: grid;
-    grid-auto-flow: column;
+    display: flex;
+    flex-direction: row;
     grid-gap: 1rem;
     justify-content: center ;
     min-width: 400px;
+    height: 80px;
 }
 
 div.guess-header > span {
+    flex-grow: 1;
     display: grid;
-    width: 80px;
-    height: 80px;
     place-items: center;
     border: 1px solid black;
+}
+
+div.guess-header > span[data-name="?"]{
     font-size: xxx-large;
+}
+
+div.guess-header > span:not([data-name="?"]) {
+    font-size:  x-large;
 }
 
 div.guess-filter {
