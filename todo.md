@@ -1,3 +1,4 @@
+- [ ] Different riddle for different pages
 - [ ] Rework getNth method for clues to be non-nullable
 - [ ] Sanitize user input
 - [ ] Implement strategy mapper pattern for different riddle types
