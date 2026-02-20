@@ -11,12 +11,14 @@ public class Clues {
     @Id
     private String id;
     private ArrayList<String> emojis;
+    private ArrayList<String> quote;
 
     public Clues() {}
 
     public Clues(String id, ArrayList<String> emojis) {
         this.id = id;
         this.emojis = emojis;
+        this.quote = quote;
     }
 
     public String getId() { return id; }
@@ -24,4 +26,7 @@ public class Clues {
 
     public ArrayList<String> getEmojis() { return emojis; }
     public void setEmojis(ArrayList<String> emojis) { this.emojis = emojis; }
+
+    public ArrayList<String> getQuote() { return quote; }
+    public void setQuote(ArrayList<String> quote) { this.quote = quote; }
 }

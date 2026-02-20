@@ -27,6 +27,10 @@ public class CluesService {
         return repository.findByIdEmojisOnly(id).map(CluesEmoji::getEmojis).orElse(Collections.emptyList());
     }
 
+    public List<String> findByIdQuoteOnly(String id) {
+        return repository.findByIdQuoteOnly(id).map(CluesQuote::getQuote).orElse(Collections.emptyList());
+    }
+
     public Clues getNth(int n) {
         Pageable pageable = PageRequest.of(n - 1, 1, Sort.by(Sort.Direction.ASC, "id"));
         Page<Clues> page = repository.findAll(pageable);

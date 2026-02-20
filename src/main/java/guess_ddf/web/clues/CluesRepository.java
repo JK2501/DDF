@@ -10,4 +10,7 @@ public interface CluesRepository extends MongoRepository<Clues, String> {
 
     @Query(value = "{ '_id':  ?0}", fields = "{ 'emojis': 1, '_id':  0}")
     Optional<CluesEmoji> findByIdEmojisOnly(String id);
+
+    @Query(value = "{ '_id':  ?0}", fields = "{ 'quote': 1, '_id':  0}")
+    Optional<CluesQuote> findByIdQuoteOnly(String id);
 }

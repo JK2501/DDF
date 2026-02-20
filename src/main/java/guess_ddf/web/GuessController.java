@@ -28,7 +28,8 @@ public class GuessController {
 
     private String riddle = "";
     private final Map<String, Supplier<List<String>>> clueMethods = Map.of(
-            "guessByEmojis", this::guessByEmojis
+            "guessByEmojis", this::guessByEmojis,
+            "guessByQuote", this::guessByQuote
     );
 
     public GuessController(EpisodeService episodeService, CluesService cluesService) {
@@ -109,5 +110,9 @@ public class GuessController {
 
     private List<String> guessByEmojis() {
         return cluesService.findByIdEmojisOnly(riddle);
+    }
+
+    private List<String> guessByQuote() {
+        return cluesService.findByIdQuoteOnly(riddle);
     }
 }
