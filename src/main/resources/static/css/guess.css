@@ -3,6 +3,10 @@ body {
     place-content: center;
 }
 
+div.guess {
+    width: 500px;
+}
+
 div.guess, div.guess > * {
     margin: 1rem;
 }
@@ -12,7 +16,6 @@ div.guess-header {
     flex-direction: row;
     grid-gap: 1rem;
     justify-content: center ;
-    min-width: 400px;
     height: 80px;
 }
 
@@ -23,11 +26,11 @@ div.guess-header > span {
     border: 1px solid black;
 }
 
-div.guess-header > span[data-name="?"]{
+div.guess-header > span.guessByEmojis {
     font-size: xxx-large;
 }
 
-div.guess-header > span:not([data-name="?"]) {
+div.guess-header > span:not(.guessByEmojis) {
     font-size:  x-large;
 }
 

@@ -53,6 +53,7 @@ public class GuessController {
         session.setAttribute("iClues", 1);
         session.setAttribute("guesses", new ArrayList<Episode>());
         session.setAttribute("guessed", false);
+        session.setAttribute("cluesType", type);
 
         model.addAttribute("clues", clues.subList(0, 1));
         model.addAttribute("episodes", episodeService.findAll());

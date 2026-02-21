@@ -35,7 +35,7 @@
     <body>
         <div class="guess">
             <div class="guess-header">
-                <span th:each="clue : ${clues}" th:text="${clue}" th:attr="data-name=${clue.charAt(0)}"></span>
+                <span th:each="clue : ${clues}" th:text="${clue}" th:class="${session.cluesType}"></span>
             </div>
             <form th:action="@{/guess}" method="post">
                 <input id="guess-search" type="text" name="guess" placeholder="Gib eine Folge ein: " onkeyup="FilterList()"></input>
