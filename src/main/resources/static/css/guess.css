@@ -5,7 +5,7 @@ body {
 
 @media screen and (min-width: 300px) and (max-width: 500px) {
     div.guess {
-        width: 300px;
+        width: 100vw;
     }
 }
 
@@ -22,28 +22,20 @@ div.guess, div.guess > * {
 div.guess-header {
     display: flex;
     flex-direction: row;
-    grid-gap: 1rem;
     justify-content: center ;
     height: 80px;
+    border: 1px solid black;
 }
 
 div.guess-header > span {
     flex-grow: 1;
     display: grid;
     place-items: center;
-    border: 1px solid black;
 }
 
 
 div.guess-header > span.guessByEmojis {
-    font-size: xx-large;
-}
-
-
-@media screen and (min-width: 500px) {
-    div.guess-header > span.guessByEmojis {
-        font-size: xxx-large;
-    }
+    font-size: xxx-large;
 }
 
 div.guess-header > span:not(.guessByEmojis) {
