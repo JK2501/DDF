@@ -1,3 +1,5 @@
+- [ ] Improve readability and add explanatory text
+- [ ] "Unsichere Verbindung. Daten trotzdem senden" <- fix
 - [ ] Different riddle for different pages
 - [ ] Rework getNth method for clues to be non-nullable
 - [ ] Sanitize user input
