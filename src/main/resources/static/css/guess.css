@@ -70,6 +70,8 @@ div.guess > form {
 }
 
 div.guess > form > input {
+    font-size: 16px;
+    font-weight: 400;
     height: 50px;
     flex-grow: 4;
 }
