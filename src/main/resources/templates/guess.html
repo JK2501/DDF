@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
         <title>Guess</title>
         <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet">
-        <link href="../static/css/guess.css" th:href="@{/css/guess.css}" rel="stylesheet">
+        <link rel="stylesheet" media="screen and (min-width: 501px)" href="../static/css/guess-desktop.css" th:href="@{/css/guess-desktop.css}">
+        <link rel="stylesheet" media="screen and (max-width: 500px)" href="../static/css/guess-mobile.css" th:href="@{/css/guess-mobile.css}">
         <script>
             function FilterList() {
                 let input = document.getElementById('guess-search');
@@ -35,7 +36,9 @@
     <body>
         <div class="guess">
             <div class="guess-header">
-                <span th:each="clue : ${clues}" th:text="${clue}" th:class="${session.cluesType}"></span>
+                <div th:each="clue : ${clues}">
+                    <span th:text="${clue}" th:class="${session.cluesType}"></span>
+                </div>
             </div>
             <form th:action="@{/guess}" method="post">
                 <input id="guess-search" type="text" name="guess" placeholder="Gib eine Folge ein: " onkeyup="FilterList()"></input>
