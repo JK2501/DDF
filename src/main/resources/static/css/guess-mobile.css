@@ -1,12 +1,12 @@
 body {
     display: grid;
     place-content: center;
-    background-color: #282828;
+    background-color: var(--color-background);;
 }
 
 div.guess {
-    background-color: #282828;
-    color: white;
+    background-color: var(--color-background);
+    color: var(--color-primary-text);
     width: 100vw;
 }
 
@@ -36,8 +36,8 @@ div.guess-header > div > span.guessByEmojis {
     place-items: center;
     width: 55px;
     height: 55px;
-    border: 5px solid white;
-    box-shadow: 2px 2px grey;
+    border: 5px solid var(--color-primary-text);
+    box-shadow: 2px 2px var(--color-surface-border);
     border-radius: 50%;
 }
 
@@ -51,16 +51,12 @@ div.guess-header > div > span.guessByEmojis::after {
     rotate: 35deg;
     left: 42px;
     top: 42px;
-    background-color: white;
-    box-shadow: 2px 2px grey;
+    background-color: var(--color-primary-text);
+    box-shadow: 2px 2px var(--color-surface-border);
 }
 
 div.guess-header > div > span:not(.guessByEmojis) {
     font-size:  x-large;
-}
-
-div.guess-filter {
-    border: 1px solid black;
 }
 
 div.guess-filter > ul {
@@ -72,6 +68,8 @@ div.guess-filter > ul {
 div.guess-filter > ul > li {
     display: none;
     height: 0;
+    background-color: var(--color-surface);
+    border: 3px solid var(--color-surface-border);
 }
 
 div.guess > form {
@@ -93,7 +91,6 @@ div.guess > form > button {
 div.guess-list > ul {
     list-style: none;
 }
-
 
 li.list-item {
     display: flex;
@@ -140,9 +137,11 @@ li.list-item:last-of-type {
 }
 
 div.guess-list > ul > li.incorrect {
-    background-color: var(--character-red);
+    background-color: var(--list-item-incorrect);
+    border: 3px solid var(--list-item-incorrect-border);
 }
 
 div.guess-list > ul > li.correct {
-    background-color: var(--character-green);
+    background-color: var(--list-item-correct);
+    border: 3px solid var(--list-item-correct-border);
 }

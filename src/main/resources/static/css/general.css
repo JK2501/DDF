@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: Helvetica, Monospace, Arial;
 }
 
 body {
@@ -15,4 +16,14 @@ body {
     --character-brown:  #7b5141;
     --character-white:  #f4f4f4;
     --character-black:  #282828;
+
+    --color-background: #282828;
+    --color-surface: #424449;
+    --color-surface-border: grey;
+    --color-primary-text: #faf7ff;
+
+    --list-item-correct: #005a34;
+    --list-item-correct-border: #00814b;
+    --list-item-incorrect: #660000;
+    --list-item-incorrect-border: #930101;
 }
