@@ -35,6 +35,9 @@
     </head>
     <body>
         <div class="guess">
+            <div class="guess-title">
+                <h2>Welche Die drei ?<span style="color: red;">?</span><span style="color: blue;">?</span> Folge beschreiben diese Emojis?</h2>
+            </div>
             <div class="guess-header">
                 <div th:each="clue : ${clues}">
                     <span th:text="${clue}" th:class="${session.cluesType}"></span>

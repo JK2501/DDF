@@ -18,6 +18,7 @@ body {
     --character-black:  #282828;
 
     --color-background: #282828;
+    --color-title: #555555;
     --color-surface: #424449;
     --color-surface-border: grey;
     --color-primary-text: #faf7ff;
@@ -26,4 +27,22 @@ body {
     --list-item-correct-border: #00814b;
     --list-item-incorrect: #660000;
     --list-item-incorrect-border: #930101;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #202324;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #454a4d;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #373b3e;
 }
