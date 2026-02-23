@@ -87,8 +87,7 @@ div.guess-header > div > span:not(.guessByEmojis) {
 
 div.guess-filter > ul {
     overflow-y: scroll;
-    min-height: 50px;
-    max-height: 150px;
+    max-height: 165px;
 }
 
 div.guess-filter > ul > li {
