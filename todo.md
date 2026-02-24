@@ -1,4 +1,5 @@
-- [ ] Improve readability and add explanatory text
+- [X] Improve readability and add explanatory text
+- [ ] New riddle method should just update db entry (so new riddle can also be manually set)
 - [ ] "Unsichere Verbindung. Daten trotzdem senden" <- fix
 - [ ] Different riddle for different pages
 - [ ] Rework getNth method for clues to be non-nullable
