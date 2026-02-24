@@ -27,6 +27,12 @@ public class GuessController {
     private final CluesService cluesService;
 
     private String riddle = "";
+
+    private final Map<String, Supplier<String>> riddleTypes = Map.of(
+            "guessByEmojis", this::generateDailyRiddleForToday,
+            "guessByQuote", this::generateDailyRiddleForTomorrow
+    );
+
     private final Map<String, Supplier<List<String>>> clueMethods = Map.of(
             "guessByEmojis", this::guessByEmojis,
             "guessByQuote", this::guessByQuote
@@ -39,12 +45,13 @@ public class GuessController {
 
     @GetMapping("/{type}")
     public String showInitialGuessPage(@PathVariable String type, HttpSession session, Model model) {
-        this.riddle = generateDailyRiddle();
 
         Supplier<List<String>> clueMethod = clueMethods.get(type);
+        Supplier<String> riddleType = riddleTypes.get(type);
 
         if (clueMethod == null) { throw new ResponseStatusException(HttpStatus.NOT_FOUND); }
 
+        this.riddle = riddleType.get();
         // retrieve clues from db
         List<String> clues = clueMethod.get();
 
@@ -101,12 +108,26 @@ public class GuessController {
         return "guess";
     }
 
-    private String generateDailyRiddle(){
-        long seed = LocalDate.now(ZoneOffset.UTC).toEpochDay();
+    private String generateRiddle(long seed){
         Random rand = new Random(seed);
         int index = rand.nextInt(cluesService.findAll().size());
         Clues riddle = cluesService.getNth(index);
         return riddle.getId().toString();
+    }
+
+    private String generateDailyRiddleForToday() {
+        long seed = LocalDate.now(ZoneOffset.UTC).toEpochDay();
+        return generateRiddle(seed);
+    }
+
+    private String generateDailyRiddleForTomorrow() {
+        long seed = LocalDate.now(ZoneOffset.UTC).plusDays(1).toEpochDay();
+        return generateRiddle(seed);
+    }
+
+    private String generateRandomRiddle(){
+        long seed = System.currentTimeMillis();
+        return generateRiddle(seed);
     }
 
     private List<String> guessByEmojis() {
