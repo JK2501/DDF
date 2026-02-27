@@ -36,7 +36,11 @@
     <body>
         <div class="guess">
             <div class="guess-title">
-                <h2>Welche Die drei ?<span style="color: red;">?</span><span style="color: blue;">?</span> Folge beschreiben diese Emojis?</h2>
+                <th:block th:switch="${session.cluesType}">
+                    <h2 th:case="'guessByEmojis'">Welche Die drei ?<span style="color: red;">?</span><span style="color: blue;">?</span> Folge beschreiben diese Emojis?</h2>
+                    <h2 th:case="'guessByQuote'">Welche Die drei ?<span style="color: red;">?</span><span style="color: blue;">?</span> Folge beschreibt dieses Zitat?</h2>
+                </th:block>
+
             </div>
             <div class="guess-header">
                 <div th:each="clue : ${clues}">

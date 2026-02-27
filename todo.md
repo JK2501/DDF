@@ -1,7 +1,12 @@
 - [X] Improve readability and add explanatory text
-- [ ] New riddle method should just update db entry (so new riddle can also be manually set)
+- [ ] ~~New riddle method should just update db entry (so new riddle can also be manually set)~~
 - [ ] "Unsichere Verbindung. Daten trotzdem senden" <- fix
-- [ ] Different riddle for different pages
-- [ ] Rework getNth method for clues to be non-nullable
+      - Requires SSL certificate i.e. HTTPS site 
+      -> move to pre-release issues
+- [X] Different riddle for different pages
+- [X] Rework getNth method for clues to be non-nullable
 - [ ] Sanitize user input
-- [ ] Implement strategy mapper pattern for different riddle types
+      - Might be inapplicable because NO-SQL 
+      -> do further checks on that 
+- [X] Implement strategy mapper pattern for different riddle types
+- [ ] session.cluesType should be exported to application.properties/.yaml  

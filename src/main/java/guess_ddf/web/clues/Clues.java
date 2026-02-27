@@ -15,7 +15,7 @@ public class Clues {
 
     public Clues() {}
 
-    public Clues(String id, ArrayList<String> emojis) {
+    public Clues(String id, ArrayList<String> emojis, ArrayList<String> quote) {
         this.id = id;
         this.emojis = emojis;
         this.quote = quote;
