@@ -6,6 +6,7 @@ import guess_ddf.web.episode.Episode;
 import guess_ddf.web.episode.EpisodeService;
 import guess_ddf.web.clues.CluesService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,19 +29,27 @@ public class GuessController {
 
     private String riddle = "";
 
-    private final Map<String, Supplier<String>> riddleTypes = Map.of(
-            "guessByEmojis", this::generateDailyRiddleForToday,
-            "guessByQuote", this::generateDailyRiddleForTomorrow
-    );
+    private final Map<String, Supplier<String>> riddleTypes;
+    private final Map<String, Supplier<List<String>>> clueMethods;
 
-    private final Map<String, Supplier<List<String>>> clueMethods = Map.of(
-            "guessByEmojis", this::guessByEmojis,
-            "guessByQuote", this::guessByQuote
-    );
-
-    public GuessController(EpisodeService episodeService, CluesService cluesService) {
+    public GuessController(
+            EpisodeService episodeService,
+            CluesService cluesService,
+            @Value("${spring.application.url[0].prefix}") String emojisURL,
+            @Value("${spring.application.url[1].prefix}") String quoteURL
+    )
+    {
         this.episodeService = episodeService;
         this.cluesService = cluesService;
+
+        this.riddleTypes = Map.of(
+                emojisURL, this::generateDailyRiddleForToday,
+                quoteURL, this::generateDailyRiddleForTomorrow
+        );
+        this.clueMethods = Map.of(
+                emojisURL, this::guessByEmojis,
+                quoteURL, this::guessByQuote
+        );
     }
 
     @GetMapping("/{type}")

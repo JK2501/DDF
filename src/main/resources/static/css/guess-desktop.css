@@ -83,6 +83,7 @@ div.guess-header > div:nth-child(4) > span.guessByEmojis::after {
 
 div.guess-header > div > span:not(.guessByEmojis) {
     font-size:  x-large;
+    text-align: center;
 }
 
 div.guess-filter > ul {

@@ -10,3 +10,5 @@
       -> do further checks on that 
 - [X] Implement strategy mapper pattern for different riddle types
 - [ ] session.cluesType should be exported to application.properties/.yaml  
+- [ ] "guess;jsessionid=AC70E566E74FAEFD93B29679A1609780"? figure out what this is about
+- [ ] riddle class with static methods
