@@ -110,6 +110,9 @@ public class GuessController {
             else { model.addAttribute("clues", clues.subList(0, iClues)); }
         }
 
+        // reverse the list of guesses episodes
+        Collections.reverse(guessedEpisodes);
+
         model.addAttribute("guesses", guessedEpisodes);
         model.addAttribute("riddleId", riddle.getId());
         model.addAttribute("episodes", episodeService.findAll());
