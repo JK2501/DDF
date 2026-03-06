@@ -114,6 +114,8 @@ div.guess > form > button {
 
 div.guess-list > ul {
     list-style: none;
+    overflow-y: scroll;
+    max-height: 235px;
 }
 
 li.list-item {
