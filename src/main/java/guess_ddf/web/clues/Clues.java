@@ -1,32 +1,14 @@
 package guess_ddf.web.clues;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.List;
+import java.util.Optional;
 
-import java.util.ArrayList;
-
-@Document(collection = "Clues")
 public class Clues {
-
-    @Id
-    private String id;
-    private ArrayList<String> emojis;
-    private ArrayList<String> quote;
-
-    public Clues() {}
-
-    public Clues(String id, ArrayList<String> emojis, ArrayList<String> quote) {
-        this.id = id;
-        this.emojis = emojis;
-        this.quote = quote;
+    public static List<String> getEmojis(Riddle riddle){
+        return Optional.ofNullable(riddle.getEmojis()).orElse(List.of("-", "-", "-", "-"));
     }
 
-    public String getId() { return id; }
-    public void setId(String id) {}
-
-    public ArrayList<String> getEmojis() { return emojis; }
-    public void setEmojis(ArrayList<String> emojis) { this.emojis = emojis; }
-
-    public ArrayList<String> getQuote() { return quote; }
-    public void setQuote(ArrayList<String> quote) { this.quote = quote; }
+    public static List<String> getQuote(Riddle riddle){
+        return Optional.ofNullable(riddle.getQuote()).orElse(List.of("-"));
+    }
 }

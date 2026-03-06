@@ -1,10 +1,10 @@
 package guess_ddf.web;
 
 import guess_ddf.web.clues.Clues;
-import guess_ddf.web.clues.CluesEmoji;
+import guess_ddf.web.clues.Riddle;
 import guess_ddf.web.episode.Episode;
 import guess_ddf.web.episode.EpisodeService;
-import guess_ddf.web.clues.CluesService;
+import guess_ddf.web.clues.RiddleService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
-import java.time.ZoneOffset;
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -25,28 +23,28 @@ import java.util.function.Supplier;
 @SuppressWarnings("unchecked")
 public class GuessController {
     private final EpisodeService episodeService;
-    private final CluesService cluesService;
+    private final RiddleService riddleService;
 
-    private String riddle = "";
+    private Riddle riddle;
 
-    private final Map<String, Supplier<String>> riddleTypes;
-    private final Map<String, Supplier<List<String>>> clueMethods;
+    private final Map<String, Supplier<Riddle>> riddleTypes;
+    private final Map<String, Supplier<List<String>>> clueTypes;
 
     public GuessController(
             EpisodeService episodeService,
-            CluesService cluesService,
+            RiddleService riddleService,
             @Value("${spring.application.url[0].prefix}") String emojisURL,
             @Value("${spring.application.url[1].prefix}") String quoteURL
     )
     {
         this.episodeService = episodeService;
-        this.cluesService = cluesService;
+        this.riddleService = riddleService;
 
         this.riddleTypes = Map.of(
-                emojisURL, this::generateDailyRiddleForToday,
-                quoteURL, this::generateDailyRiddleForTomorrow
+                emojisURL, this.riddleService::generateDailyRiddleForToday,
+                quoteURL, this.riddleService::generateDailyRiddleForTomorrow
         );
-        this.clueMethods = Map.of(
+        this.clueTypes = Map.of(
                 emojisURL, this::guessByEmojis,
                 quoteURL, this::guessByQuote
         );
@@ -55,16 +53,17 @@ public class GuessController {
     @GetMapping("/{type}")
     public String showInitialGuessPage(@PathVariable String type, HttpSession session, Model model) {
 
-        Supplier<List<String>> clueMethod = clueMethods.get(type);
-        Supplier<String> riddleType = riddleTypes.get(type);
+        Supplier<List<String>> clueType = clueTypes.get(type);
+        Supplier<Riddle> riddleType = riddleTypes.get(type);
 
-        if (clueMethod == null) { throw new ResponseStatusException(HttpStatus.NOT_FOUND); }
+        if (clueType == null) { throw new ResponseStatusException(HttpStatus.NOT_FOUND); }
 
+        // retrieve riddle from db
         this.riddle = riddleType.get();
         // retrieve clues from db
-        List<String> clues = clueMethod.get();
+        List<String> clues = clueType.get();
 
-        // add clues, guessed and guesses to session storage
+        // add attributes to session storage
         session.setAttribute("clues", clues);
         session.setAttribute("iClues", 1);
         session.setAttribute("guesses", new ArrayList<Episode>());
@@ -95,7 +94,7 @@ public class GuessController {
                 // add episode to guesses
                 guessedEpisodes.add(guessedEpisode);
                 // win => display all clues; set guessed true;
-                if (guessedEpisode.getId().toString().equals(riddle)) {
+                if (guessedEpisode.getId().toString().equals(riddle.getId())) {
                     session.setAttribute("iClues", clues.size());
                     session.setAttribute("guessed", true);
                     model.addAttribute("clues", clues);
@@ -112,38 +111,16 @@ public class GuessController {
         }
 
         model.addAttribute("guesses", guessedEpisodes);
-        model.addAttribute("riddleId", riddle);
+        model.addAttribute("riddleId", riddle.getId());
         model.addAttribute("episodes", episodeService.findAll());
         return "guess";
     }
 
-    private String generateRiddle(long seed){
-        Random rand = new Random(seed);
-        int index = rand.nextInt(cluesService.findAll().size());
-        Clues riddle = cluesService.getNth(index);
-        return riddle.getId().toString();
-    }
-
-    private String generateDailyRiddleForToday() {
-        long seed = LocalDate.now(ZoneOffset.UTC).toEpochDay();
-        return generateRiddle(seed);
-    }
-
-    private String generateDailyRiddleForTomorrow() {
-        long seed = LocalDate.now(ZoneOffset.UTC).plusDays(1).toEpochDay();
-        return generateRiddle(seed);
-    }
-
-    private String generateRandomRiddle(){
-        long seed = System.currentTimeMillis();
-        return generateRiddle(seed);
-    }
-
     private List<String> guessByEmojis() {
-        return cluesService.findByIdEmojisOnly(riddle);
+        return Clues.getEmojis(riddle);
     }
 
     private List<String> guessByQuote() {
-        return cluesService.findByIdQuoteOnly(riddle);
+        return Clues.getQuote(riddle);
     }
 }
