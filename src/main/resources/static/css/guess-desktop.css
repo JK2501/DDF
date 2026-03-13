@@ -51,7 +51,7 @@ div.guess-header > div {
 }
 
 
-div.guess-header > div > span.guessByEmojis {
+div.guess-header > div > span.emojis {
     position: relative;
     font-size: xxx-large;
     display: grid;
@@ -63,7 +63,7 @@ div.guess-header > div > span.guessByEmojis {
     border-radius: 50%;
 }
 
-div.guess-header > div > span.guessByEmojis::after {
+div.guess-header > div > span.emojis::after {
     position: absolute;
     content: "";
     display: inline-block;
@@ -77,11 +77,11 @@ div.guess-header > div > span.guessByEmojis::after {
     box-shadow: 2px 2px var(--color-surface-border);
 }
 
-div.guess-header > div:nth-child(4) > span.guessByEmojis::after {
+div.guess-header > div:nth-child(4) > span.emojis::after {
     width: 28px;
 }
 
-div.guess-header > div > span:not(.guessByEmojis) {
+div.guess-header > div > span:not(.emojis) {
     font-size:  x-large;
     text-align: center;
 }

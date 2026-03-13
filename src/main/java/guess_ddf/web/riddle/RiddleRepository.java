@@ -1,4 +1,4 @@
-package guess_ddf.web.clues;
+package guess_ddf.web.riddle;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

@@ -36,15 +36,15 @@
     <body>
         <div class="guess">
             <div class="guess-title">
-                <th:block th:switch="${session.cluesType}">
-                    <h2 th:case="'guessByEmojis'">Welche Die drei ?<span style="color: red;">?</span><span style="color: blue;">?</span> Folge beschreiben diese Emojis?</h2>
-                    <h2 th:case="'guessByQuote'">Welche Die drei ?<span style="color: red;">?</span><span style="color: blue;">?</span> Folge beschreibt dieses Zitat?</h2>
+                <th:block th:switch="${game.getCluesType()}">
+                    <h2 th:case="'emojis'">Welche Die drei ?<span style="color: red;">?</span><span style="color: blue;">?</span> Folge beschreiben diese Emojis?</h2>
+                    <h2 th:case="'quote'">Welche Die drei ?<span style="color: red;">?</span><span style="color: blue;">?</span> Folge beschreibt dieses Zitat?</h2>
                 </th:block>
 
             </div>
             <div class="guess-header">
-                <div th:each="clue : ${clues}">
-                    <span th:text="${clue}" th:class="${session.cluesType}"></span>
+                <div th:each="clue : ${game.getCluesDisplayed()}">
+                    <span th:text="${clue}" th:class="${game.getCluesType()}"></span>
                 </div>
             </div>
             <form th:action="@{/guess}" method="post">
@@ -52,10 +52,10 @@
             </form>
             <div class="guess-filter">
                 <ul id="guess-filter-list">
-                    <li class="list-item" th:each="episode : ${episodes}" onclick="SubmitEpisode(this)" th:attr="data-title=${episode.getTitle()}">
+                    <li class="list-item" th:each="episode : ${game.getEpisodes()}" onclick="SubmitEpisode(this)" th:data-title="${episode.getTitle()}">
                         <div>
                             <div class="img">
-                                <object type="image/jpeg" th:attr="data=@{${episode.getTitleAsImageSourceLookup()}}">
+                                <object type="image/jpeg" th:data="@{${episode.getTitleAsImageSourceLookup()}}">
                                     <img th:src="@{${episode.getCover()}}" loading="lazy" alt="fail" width="100" height="100">
                                 </object>
                             </div>
@@ -66,11 +66,11 @@
             </div>
             <div class="guess-list">
                 <ul>
-                    <li th:each="episode : ${guesses}" class="list-item" th:classappend="${(riddleId == episode.getId().toString()) ? 'correct': 'incorrect'}">
+                    <li th:each="episode : ${game.getGuessesReversed()}" class="list-item" th:classappend="${(game.getRiddle().getId() == episode.getId().toString()) ? 'correct': 'incorrect'}">
                         <div>
                             <a th:href="@{${episode.getNumberAsEpisodeLink()}}">
                                 <div class="img">
-                                    <object type="image/jpeg" th:attr="data=@{${episode.getTitleAsImageSourceLookup()}}">
+                                    <object type="image/jpeg" th:data="@{${episode.getTitleAsImageSourceLookup()}}">
                                         <img th:src="@{${episode.getCover()}}" loading="lazy" alt="fail" width="100" height="100">
                                     </object>
                                 </div>

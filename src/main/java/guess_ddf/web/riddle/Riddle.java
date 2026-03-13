@@ -1,9 +1,8 @@
-package guess_ddf.web.clues;
+package guess_ddf.web.riddle;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "Riddles")
@@ -30,4 +29,9 @@ public class Riddle {
 
     public List<String> getQuote() { return quote; }
     public void setQuote(List<String> quote) { this.quote = quote; }
+
+    @Override
+    public String toString() {
+        return String.format("[id: %s]", id);
+    }
 }

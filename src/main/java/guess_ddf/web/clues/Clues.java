@@ -1,5 +1,7 @@
 package guess_ddf.web.clues;
 
+import guess_ddf.web.riddle.Riddle;
+
 import java.util.List;
 import java.util.Optional;
 
