@@ -37,9 +37,6 @@ public class GuessController {
         if (guessType == null) { throw new ResponseStatusException(HttpStatus.NOT_FOUND); }
 
         Riddle riddle = guessType.generateRiddle(riddleService);
-
-        System.out.println(riddle.toString());
-
         List<String> clues = guessType.generateClues(riddle);
         List<Episode> episodes = episodeService.findAll();
 
