@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet">
+    <link href="../static/css/home.css" th:href="@{/css/home.css}" rel="stylesheet">
+    <title>Home</title>
+</head>
+<body>
+<div class="home">
+    <div class="home-title">
+        <h1>Guess-DDF</h1>
+        <h3>Errate die Drei ?<span style="color: blue">?</span><span style="color: red">?</span> Folge</h3>
+    </div>
+    <div class="home-select">
+        <ul>
+            <a th:href="@{/emojis}">
+                <li class="list-item">
+                    <p>🙂</p>
+                    <p>Emojis</p>
+                </li>
+            </a>
+            <a th:href="@{/quote}">
+                <li class="list-item">
+                    <p>💬</p>
+                    <p>Zitat</p>
+                </li>
+            </a>
+            <a href="https://github.com/JK2501/DDF">
+                <li class="list-item">
+                    <p>❓</p>
+                    <p>About</p>
+                </li>
+            </a>
+        </ul>
+    </div>
+</div>
+
+</body>
+
+</html>

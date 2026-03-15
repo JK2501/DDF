@@ -28,13 +28,18 @@ public class GuessController {
         this.riddleService = riddleService;
     }
 
+    @GetMapping("/")
+    public String home(Model model) {
+        return "home";
+    }
+
     @GetMapping("/{type}")
     public String showInitialGuessPage(
             @PathVariable String type,
             Model model
     ) {
         GuessType guessType = GuessType.fromString(type);
-        if (guessType == null) { throw new ResponseStatusException(HttpStatus.NOT_FOUND); }
+        if (guessType == null) { return "home"; }
 
         Riddle riddle = guessType.generateRiddle(riddleService);
         List<String> clues = guessType.generateClues(riddle);
