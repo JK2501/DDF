@@ -1,6 +1,6 @@
 - [X] Improve readability and add explanatory text
 - [ ] ~~New riddle method should just update db entry (so new riddle can also be manually set)~~
-- [ ] "Unsichere Verbindung. Daten trotzdem senden" <- fix
+- [X] "Unsichere Verbindung. Daten trotzdem senden" <- fix
       - Requires SSL certificate i.e. HTTPS site 
       -> move to pre-release issues
 - [X] Different riddle for different pages
@@ -10,5 +10,14 @@
       -> do further checks on that 
 - [X] Implement strategy mapper pattern for different riddle types
 - [X] session.cluesType should be exported to application.properties/.yaml  
-- [ ] "guess;jsessionid=AC70E566E74FAEFD93B29679A1609780"? figure out what this is about
+- [X] "guess;jsessionid=AC70E566E74FAEFD93B29679A1609780"? figure out what this is about
+      -> redesign rest controller to be stateless so browser doesnt fall back on in-url session token 
+         when multiple users access the page
 - [X] ~~riddle~~ clues class with static methods
+- [ ] Add .env with db uri and tie to different build profiles
+- [ ] Guess-DDF zu DDFDLE
+- [ ] Longer list (readability)
+- [ ] Change riddle selection algo (emojis <-/-> quote )
+- [ ] Add return to home button (<-)
+- [ ] Add splash art game mode (server side generation of random snippet, so no cheat)
+- [ ] Add game mode where client reads cards and user have to guess client and/or episode
