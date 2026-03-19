@@ -35,12 +35,22 @@
     </head>
     <body>
         <div class="guess">
+            <div class="guess-return">
+                <a th:href="@{/home}"><span>🏠︎</span></a>
+                <th:block th:switch="${game.getCluesType()}">
+                    <a th:case="'emojis'"><span><h3>Emojis</h3></span></a>
+                    <a th:case="'quote'"><span><h3>Zitate</h3></span></a>
+                </th:block>
+                <th:block th:switch="${game.getCluesType()}">
+                    <a th:case="'emojis'" th:href="@{/quote}"><span>▶</span></a>
+                    <a th:case="'quote'" th:href="@{/emojis}"><span>▶</span></a>
+                </th:block>
+            </div>
             <div class="guess-title">
                 <th:block th:switch="${game.getCluesType()}">
                     <h2 th:case="'emojis'">Welche Die drei ?<span style="color: red;">?</span><span style="color: blue;">?</span> Folge beschreiben diese Emojis?</h2>
                     <h2 th:case="'quote'">Welche Die drei ?<span style="color: red;">?</span><span style="color: blue;">?</span> Folge beschreibt dieses Zitat?</h2>
                 </th:block>
-
             </div>
             <div class="guess-header">
                 <div th:each="clue : ${game.getCluesDisplayed()}">

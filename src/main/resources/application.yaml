@@ -3,5 +3,5 @@ spring:
     name: web
 
   mongodb:
-    uri: mongodb://127.0.0.1:27017
+    uri: ${MONGODB_URI}
     database: DDF

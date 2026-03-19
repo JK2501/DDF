@@ -12,7 +12,7 @@ public enum GuessType {
     EMOJIS {
         @Override
         public Riddle generateRiddle(RiddleService service) {
-            return service.generateDailyRiddleForToday();
+            return service.generateDailyRiddle1();
         }
 
         @Override
@@ -24,7 +24,7 @@ public enum GuessType {
     QUOTE {
         @Override
         public Riddle generateRiddle(RiddleService service) {
-            return service.generateDailyRiddleForTomorrow();
+            return service.generateDailyRiddle2();
         }
 
         @Override

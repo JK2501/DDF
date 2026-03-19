@@ -14,10 +14,11 @@
       -> redesign rest controller to be stateless so browser doesnt fall back on in-url session token 
          when multiple users access the page
 - [X] ~~riddle~~ clues class with static methods
-- [ ] Add .env with db uri and tie to different build profiles
-- [ ] Guess-DDF zu DDFDLE
-- [ ] Longer list (readability)
-- [ ] Change riddle selection algo (emojis <-/-> quote )
-- [ ] Add return to home button (<-)
+- [X] Add .env with db uri and tie to different build profiles
+      - mongodb connection string is now user-wide env var.
+- [X] Guess-DDF zu DDFDLE
+- [X] Longer list (readability)
+- [X] Change riddle selection algo (emojis <-/-> quote )
+- [X] Add return to home button (<-)
 - [ ] Add splash art game mode (server side generation of random snippet, so no cheat)
 - [ ] Add game mode where client reads cards and user have to guess client and/or episode

@@ -14,6 +14,37 @@ div.guess > * {
     margin: 1rem;
 }
 
+a {
+    text-decoration: none;
+    color: var(--character-white);
+}
+
+div.guess-return {
+    display: flex;
+    justify-content: space-between;
+}
+
+div.guess-return > a > span {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-surface);
+    border: 3px solid var(--color-surface-border);
+    border-radius: 50%;
+    font-size: x-large;
+}
+
+div.guess-return > a:hover {
+    -webkit-filter: brightness(70%);
+}
+
+div.guess-return > a:nth-child(even) > span {
+    width: 150px;
+    border-radius: 15px;
+}
+
 div.guess-title {
     display: grid;
     place-items: center;
@@ -38,10 +69,10 @@ div.guess-header {
     flex-direction: row;
     justify-content: center ;
     align-items: center;
-    height: 125px;
     background-color: var(--color-surface);
     border: 3px solid var(--color-surface-border);
     border-radius: 15px;
+    height: 125px;
 }
 
 div.guess-header > div {
@@ -69,10 +100,10 @@ div.guess-header > div > span.emojis::after {
     display: inline-block;
     width: 24px;
     height: 8px;
-    border-radius: 0 15px 15px 0px;
     rotate: 35deg;
     left: 42px;
     top: 42px;
+    border-radius: 0 15px 15px 0px;
     background-color: var(--color-primary-text);
     box-shadow: 2px 2px var(--color-surface-border);
 }
@@ -88,7 +119,7 @@ div.guess-header > div > span:not(.emojis) {
 
 div.guess-filter > ul {
     overflow-y: scroll;
-    max-height: 165px;
+    max-height: 235px;
 }
 
 div.guess-filter > ul > li {

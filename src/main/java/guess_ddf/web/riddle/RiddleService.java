@@ -8,12 +8,14 @@ import org.springframework.stereotype.Service;
 
 import java.rmi.server.ObjID;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.*;
 
 @Service
 public class RiddleService {
 
+    private final ZoneId DE = ZoneId.of("Europe/Berlin");
     private final RiddleRepository riddleRepository;
 
     public RiddleService(RiddleRepository riddleRepository) {
@@ -41,14 +43,18 @@ public class RiddleService {
         return this.getNthRiddle(index);
     }
 
-    public Riddle generateDailyRiddleForToday() {
-        long seed = LocalDate.now(ZoneOffset.UTC).toEpochDay();
-        return this.generateRiddle(seed);
+    private long generateBaseSeed(){
+        return LocalDate.now(DE).toEpochDay();
     }
 
-    public Riddle generateDailyRiddleForTomorrow() {
-        long seed = LocalDate.now(ZoneOffset.UTC).plusDays(1).toEpochDay();
-        return this.generateRiddle(seed);
+    public Riddle generateDailyRiddle1() {
+        long randomSeed = new Random(this.generateBaseSeed() ^ 0x9E3779B97F4A7C15L).nextLong();
+        return this.generateRiddle(randomSeed);
+    }
+
+    public Riddle generateDailyRiddle2() {
+        long randomSeed = new Random(this.generateBaseSeed() ^ 0xC2B2AE3D27D4EB4FL).nextLong();
+        return this.generateRiddle(randomSeed);
     }
 
     public Riddle generateRandomRiddle(){
