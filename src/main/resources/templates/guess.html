@@ -7,6 +7,7 @@
         <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet">
         <link rel="stylesheet" media="screen and (min-width: 500px)" href="../static/css/guess-desktop.css" th:href="@{/css/guess-desktop.css}">
         <link rel="stylesheet" media="screen and (max-width: 500px)" href="../static/css/guess-mobile.css" th:href="@{/css/guess-mobile.css}">
+        <link rel="prefetch" href="../cover/tile_00.png" th:href="@{/cover/tile_00.png}"/>
         <script>
             function FilterList() {
                 let input = document.getElementById('guess-search');
@@ -63,13 +64,7 @@
             <div class="guess-filter">
                 <ul id="guess-filter-list">
                     <li class="list-item" th:each="episode : ${game.getEpisodes()}" onclick="SubmitEpisode(this)" th:data-title="${episode.getTitle()}">
-                        <div>
-                            <div class="img">
-                                <object type="image/jpeg" th:data="@{${episode.getTitleAsImageSourceLookup()}}">
-                                    <img th:src="@{${episode.getCover()}}" loading="lazy" alt="fail" width="100" height="100">
-                                </object>
-                            </div>
-                        </div>
+                        <div class="list-item-image" th:style="${@spriteUtil.getCombinedStyling(episode.getNumber())}"></div>
                         <p th:text="${episode.getTitle()}"></p>
                     </li>
                 </ul>
@@ -77,15 +72,7 @@
             <div class="guess-list">
                 <ul>
                     <li th:each="episode : ${game.getGuessesReversed()}" class="list-item" th:classappend="${(game.getRiddle().getId() == episode.getId().toString()) ? 'correct': 'incorrect'}">
-                        <div>
-                            <a th:href="@{${episode.getNumberAsEpisodeLink()}}">
-                                <div class="img">
-                                    <object type="image/jpeg" th:data="@{${episode.getTitleAsImageSourceLookup()}}">
-                                        <img th:src="@{${episode.getCover()}}" loading="lazy" alt="fail" width="100" height="100">
-                                    </object>
-                                </div>
-                            </a>
-                        </div>
+                        <div class="list-item-image" th:style="${@spriteUtil.getCombinedStyling(episode.getNumber())}"></div>
                         <p th:text="${episode.getCombinedTitle()}"></p>
                     </li>
                 </ul>

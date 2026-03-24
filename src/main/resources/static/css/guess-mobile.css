@@ -119,7 +119,7 @@ div.guess-header > div > span:not(.emojis) {
 
 div.guess-filter > ul {
     overflow-y: scroll;
-    max-height: 235px;
+    max-height: 250px;
 }
 
 div.guess-filter > ul > li {
@@ -146,7 +146,7 @@ div.guess > form > button {
 div.guess-list > ul {
     list-style: none;
     overflow-y: scroll;
-    max-height: 235px;
+    max-height: 250px;
 }
 
 li.list-item {
@@ -157,19 +157,9 @@ li.list-item {
 
     div {
         width: 68px;
-        flex-shrink: 0;
-        overflow: hidden;
+        height: 68px;
         border-radius: 15px 0 0 15px;
         margin-right: 0.5rem;
-
-        div {
-            width: 100px;
-            height: 100px;
-            margin-top: -30px;
-            margin-left: -16px;
-            margin-right: -16px;
-            margin-bottom: -5px;
-        }
     }
 
     p {
@@ -177,11 +167,6 @@ li.list-item {
         text-align: left;
         font-weight: bold;
     }
-}
-
-object, img {
-    width: 100px;
-    height: 100px;
 }
 
 li.list-item:hover {
