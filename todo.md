@@ -24,5 +24,6 @@
       ~~- cache episode data that is retrieved from db~~
       ~~- lazy load images (and other tactics) (mby consider sprites)~~
       - prefetch stuff 
+- [ ] Use serie.json from classpath when doing initial loading of episodes to db
 - [ ] Add splash art game mode (server side generation of random snippet, so no cheat)
 - [ ] Add game mode where client reads cards and user have to guess client and/or episode
