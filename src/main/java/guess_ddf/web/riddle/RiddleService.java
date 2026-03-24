@@ -1,5 +1,6 @@
 package guess_ddf.web.riddle;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,12 @@ public class RiddleService {
 
     private final ZoneId DE = ZoneId.of("Europe/Berlin");
     private final RiddleRepository riddleRepository;
+
+    private Riddle cachedRiddle1;
+    private Riddle cachedRiddle2;
+
+    private LocalDate lastGenerated1;
+    private LocalDate lastGenerated2;
 
     public RiddleService(RiddleRepository riddleRepository) {
         this.riddleRepository = riddleRepository;
@@ -48,13 +55,21 @@ public class RiddleService {
     }
 
     public Riddle generateDailyRiddle1() {
-        long randomSeed = new Random(this.generateBaseSeed() ^ 0x9E3779B97F4A7C15L).nextLong();
-        return this.generateRiddle(randomSeed);
+        if(!LocalDate.now(DE).equals(lastGenerated1)){
+            long randomSeed = new Random(this.generateBaseSeed() ^ 0x9E3779B97F4A7C15L).nextLong();
+            this.cachedRiddle1 = this.generateRiddle(randomSeed);
+            this.lastGenerated1 = LocalDate.now(DE);
+        }
+        return this.cachedRiddle1;
     }
 
     public Riddle generateDailyRiddle2() {
-        long randomSeed = new Random(this.generateBaseSeed() ^ 0xC2B2AE3D27D4EB4FL).nextLong();
-        return this.generateRiddle(randomSeed);
+        if(!LocalDate.now(DE).equals(lastGenerated2)){
+            long randomSeed = new Random(this.generateBaseSeed() ^ 0xC2B2AE3D27D4EB4FL).nextLong();
+            this.cachedRiddle2 = this.generateRiddle(randomSeed);
+            this.lastGenerated2 = LocalDate.now(DE);
+        }
+        return this.cachedRiddle2;
     }
 
     public Riddle generateRandomRiddle(){

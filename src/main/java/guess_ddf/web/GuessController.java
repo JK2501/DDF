@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Controller
 @SessionAttributes("game")
@@ -43,9 +44,12 @@ public class GuessController {
 
         Riddle riddle = guessType.generateRiddle(riddleService);
         List<String> clues = guessType.generateClues(riddle);
-        List<Episode> episodes = episodeService.findAll();
 
-        GuessGame game = new GuessGame(riddle, guessType.name(), clues, episodes);
+        List<Episode> episodes = episodeService.findAll();
+        Map<String, Episode> episodeMap = episodes.stream()
+                .collect(Collectors.toMap(e -> e.getTitle().toLowerCase(), e -> e));
+
+        GuessGame game = new GuessGame(riddle, guessType.name(), clues, episodeMap);
         game.setCluesDisplayed(clues.subList(0, 1));
 
         model.addAttribute("game", game);
@@ -58,16 +62,17 @@ public class GuessController {
         Riddle riddle = game.getRiddle();
         List<String> clues = game.getClues();
         List<String> cluesDisplayed = game.getCluesDisplayed();
-        List<Episode> guesses = game.getGuesses();
+        LinkedHashSet<Episode> guesses = game.getGuesses();
+        Map<String, Episode> episodeMap = game.getEpisodeMap();
 
         // user already guessed the episode => display all clues; do not add new episodes
         if(game.isGameOver()) {  game.setCluesDisplayed(clues); }
         // user did not guess episode in prev attempt
         else {
             // find episode matching the guess
-            Episode guessedEpisode = episodeService.findByTitle(guess);
+            Episode guessedEpisode = episodeMap.get(guess.toLowerCase());
             // a valid episode
-            if (guessedEpisode != null && !Episode.isContained(guesses, guessedEpisode)) {
+            if (guessedEpisode != null && guesses.add(guessedEpisode)) {
                 // add episode to guesses
                 guesses.add(guessedEpisode);
                 game.setGuesses(guesses);

@@ -1,6 +1,7 @@
 package guess_ddf.web.episode;
 
 import jakarta.annotation.PostConstruct;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class EpisodeService {
         System.out.println("======= Exporting episodes to JSON");
     }
 
+    @Cacheable("episodes")
     public List<Episode> findAll() {
         return repository.findAll();
     }

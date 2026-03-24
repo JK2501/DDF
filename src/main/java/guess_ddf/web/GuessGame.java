@@ -3,27 +3,25 @@ package guess_ddf.web;
 import guess_ddf.web.episode.Episode;
 import guess_ddf.web.riddle.Riddle;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class GuessGame {
     private Riddle riddle;
 
     private String cluesType;
     private List<String> clues;
-    private List<Episode> guesses;
-    private List<Episode> episodes;
+    private LinkedHashSet<Episode> guesses;
+    private Map<String, Episode> episodeMap;
     private List<String> cluesDisplayed;
     private boolean gameOver;
 
-    public GuessGame(Riddle riddle, String cluesType, List<String> clues, List<Episode> episodes) {
+    public GuessGame(Riddle riddle, String cluesType, List<String> clues, Map<String, Episode> episodeMap) {
         this.riddle = riddle;
         this.cluesType = cluesType.toLowerCase();
         this.clues = clues;
-        this.episodes = episodes;
+        this.episodeMap = episodeMap;
         this.cluesDisplayed = new ArrayList<>();
-        this.guesses = new ArrayList<>();
+        this.guesses = new LinkedHashSet<>();
         this.gameOver = false;
     }
 
@@ -36,8 +34,8 @@ public class GuessGame {
     public List<String> getClues() { return clues; }
     public void setClues(List<String> clues) { this.clues = clues; }
 
-    public List<Episode> getGuesses() { return guesses; }
-    public void setGuesses(List<Episode> guesses) { this.guesses = guesses; }
+    public LinkedHashSet<Episode> getGuesses() { return guesses; }
+    public void setGuesses(LinkedHashSet<Episode> guesses) { this.guesses = guesses; }
 
     public List<Episode> getGuessesReversed() {
         List<Episode> reversedGuesses = new ArrayList<>(this.guesses);
@@ -45,8 +43,12 @@ public class GuessGame {
         return reversedGuesses;
     }
 
-    public List<Episode> getEpisodes() { return episodes; }
-    public void setEpisodes(List<Episode> episodes) { this.episodes = episodes; }
+    public Map<String, Episode> getEpisodeMap() { return episodeMap; }
+    public void setEpisodeMap(Map<String, Episode> episodeMap) { this.episodeMap = episodeMap; }
+
+    public List<Episode> getEpisodes() {
+        return episodeMap.values().stream().sorted(Comparator.comparing(Episode::getNumber)).toList();
+    }
 
     public List<String> getCluesDisplayed() { return cluesDisplayed; }
     public void setCluesDisplayed(List<String> cluesDisplayed) { this.cluesDisplayed = cluesDisplayed; }

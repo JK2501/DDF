@@ -21,7 +21,7 @@
 - [X] Change riddle selection algo (emojis <-/-> quote )
 - [X] Add return to home button (<-)
 - [ ] Make website be less resource intensive
-      - cache episode data that is retrieved from db
+      ~~- cache episode data that is retrieved from db~~
       ~~- lazy load images (and other tactics) (mby consider sprites)~~
       - prefetch stuff 
 - [ ] Add splash art game mode (server side generation of random snippet, so no cheat)

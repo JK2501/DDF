@@ -1,6 +1,8 @@
 spring:
   application:
     name: web
+  cache:
+    type: simple
 
   mongodb:
     uri: ${MONGODB_URI}
