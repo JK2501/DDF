@@ -18,10 +18,15 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Controller
-@SessionAttributes("game")
+@SessionAttributes("guessGameSession")
 public class GuessController {
     private final EpisodeService episodeService;
     private final RiddleService riddleService;
+
+    @ModelAttribute("guessGameSession")
+    public GuessGameSession guessGameSession() {
+        return new GuessGameSession();
+    }
 
     public GuessController(EpisodeService episodeService, RiddleService riddleService)
     {
@@ -37,27 +42,41 @@ public class GuessController {
     @GetMapping("/{type}")
     public String showInitialGuessPage(
             @PathVariable String type,
+            @ModelAttribute("guessGameSession") GuessGameSession guessGameSession,
             Model model
     ) {
         GuessType guessType = GuessType.fromString(type);
         if (guessType == null) { return "home"; }
 
-        Riddle riddle = guessType.generateRiddle(riddleService);
-        List<String> clues = guessType.generateClues(riddle);
+        GuessGame game = guessGameSession.getGame(type);
 
-        List<Episode> episodes = episodeService.findAll();
-        Map<String, Episode> episodeMap = episodes.stream()
-                .collect(Collectors.toMap(e -> e.getTitle().toLowerCase(), e -> e));
+        if(game == null){
+            Riddle riddle = guessType.generateRiddle(riddleService);
+            List<String> clues = guessType.generateClues(riddle);
 
-        GuessGame game = new GuessGame(riddle, guessType.name(), clues, episodeMap);
-        game.setCluesDisplayed(clues.subList(0, 1));
+            List<Episode> episodes = episodeService.findAll();
+            Map<String, Episode> episodeMap = episodes.stream()
+                    .collect(Collectors.toMap(e -> e.getTitle().toLowerCase(), e -> e));
+
+            game = new GuessGame(riddle, guessType.name(), clues, episodeMap);
+            game.setCluesDisplayed(clues.subList(0, 1));
+
+            guessGameSession.setGame(type, game);
+        }
 
         model.addAttribute("game", game);
         return "guess";
     }
 
     @PostMapping("/guess")
-    public String showFollowupGuessPage(@RequestParam String guess, @ModelAttribute("game") GuessGame game) {
+    public String showFollowupGuessPage(
+            @RequestParam String guess,
+            @RequestParam String type,
+            @ModelAttribute("guessGameSession") GuessGameSession guessGameSession,
+            Model model
+    ) {
+
+        GuessGame game = guessGameSession.getGame(type);
 
         Riddle riddle = game.getRiddle();
         List<String> clues = game.getClues();
@@ -88,6 +107,8 @@ public class GuessController {
                 }
             }
         }
+
+        model.addAttribute("game", game);
         return "guess";
     }
 }

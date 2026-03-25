@@ -59,6 +59,7 @@
                 </div>
             </div>
             <form th:action="@{/guess}" method="post">
+                <input type="hidden" name="type" th:value="${game.cluesType}" />
                 <input id="guess-search" type="text" name="guess" placeholder="Gib eine Folge ein: " onkeyup="FilterList()"></input>
             </form>
             <div class="guess-filter">
