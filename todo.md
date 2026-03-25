@@ -25,6 +25,7 @@
       ~~- lazy load images (and other tactics) (mby consider sprites)~~
       - prefetch stuff 
       - Try and combine both mobile and desktop css (find out what is critical css)
+      - Optimize getCombinedStyling method         
 - [ ] Clean Up code  
 - [ ] Write a README.md
 - [ ] Use serie.json from classpath when doing initial loading of episodes to db
