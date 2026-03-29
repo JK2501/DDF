@@ -8,9 +8,9 @@ public class SpriteUtil {
     private final int X = 68;
     private final int Y = 68;
 
-    private final String SPRITE_0 = "/cover/tile_00.png";
-    private final String SPRITE_1 = "/cover/tile_01.png";
-    private final String SPRITE_2 = "/cover/tile_02.png";
+    private final String SPRITE_0 = "/cover/tile_00.webp";
+    private final String SPRITE_1 = "/cover/tile_01.webp";
+    private final String SPRITE_2 = "/cover/tile_02.webp";
 
     public String getSpriteURL(int number) {
         String numberAsString = String.format("%03d", number);
