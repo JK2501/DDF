@@ -2,34 +2,13 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
+        <meta name="description" content="Guess Die drei ??? episodes">
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
         <title>Guess</title>
-        <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet">
+        <link rel="stylesheet" href="../static/css/general.css" th:href="@{/css/general.css}">
         <link rel="stylesheet" href="../static/css/guess.css" th:href="@{/css/guess.css}">
         <script>
-            function FilterList() {
-                let input = document.getElementById('guess-search');
-                let filter = input.value.toUpperCase();
-                let ul = document.getElementById("guess-filter-list");
-                let li = ul.getElementsByTagName('li');
-
-                for (i = 0; i < li.length; i++) {
-                    let txtValue = li[i].textContent;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        li[i].style.display = "flex";
-                        li[i].style.height = "auto";
-                    }
-                    else {
-                        li[i].style.display = "none";
-                    }
-                }
-            }
-            function SubmitEpisode(episode) {
-                let input = document.getElementById('guess-search');
-                let form = document.getElementsByTagName("form")[0];
-                input.value = episode.dataset.title;
-                form.submit()
-            }
+            function FilterList(){let e=document.getElementById("guess-search").value.toUpperCase(),t=document.getElementById("guess-filter-list").getElementsByTagName("li");for(i=0;i<t.length;i++){t[i].textContent.toUpperCase().indexOf(e)>-1?(t[i].style.display="flex",t[i].style.height="auto"):t[i].style.display="none"}}function SubmitEpisode(e){let t=document.getElementById("guess-search"),i=document.getElementsByTagName("form")[0];t.value=e.dataset.title,i.submit()}
         </script>
     </head>
     <body>
